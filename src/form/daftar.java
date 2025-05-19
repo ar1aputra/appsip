@@ -4,40 +4,34 @@
  * and open the template in the editor.
  */
 package form;
-
-import java.awt.HeadlessException;
+import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
-import model.koneksi;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
-
+import model.koneksi2;
 
 /**
  *
  * @author Administrator
  */
 public final class daftar extends javax.swing.JFrame {
-
+    int xx, xy;
+ 
     /**
      * Creates new form daftar
      */
     public daftar() {
         initComponents();
         bersih();
-        txtidlogin.setEnabled(false);
-        btnid.setEnabled(false);
+        setLocationRelativeTo(null);
+        //btnidlogin.setEnabled(false);
+        //txtidlogin.setEnabled(false);
     }
        
      public void bersih() {
        txtnama.setText(null);
        txtpass.setText(null);
-       txtidlogin.setText(null);
-   }     
-
+       txtpass2.setText(null);
+   }        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,38 +44,62 @@ public final class daftar extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        btnicon = new javax.swing.JButton();
         btnnama = new javax.swing.JButton();
         btnpass = new javax.swing.JButton();
         txtnama = new javax.swing.JTextField();
         btndaftar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtpass = new javax.swing.JPasswordField();
-        btnid = new javax.swing.JButton();
-        txtidlogin = new javax.swing.JTextField();
+        btnbatal = new javax.swing.JButton();
+        btnconfirm = new javax.swing.JButton();
+        txtpass2 = new javax.swing.JPasswordField();
 
         jLabel3.setText("jLabel3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                formMouseDragged(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+        });
 
-        jPanel1.setBackground(new java.awt.Color(102, 204, 255));
+        jPanel1.setBackground(new java.awt.Color(0, 102, 102));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("DAFTAR");
+
+        btnicon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/icons8-close-24.png"))); // NOI18N
+        btnicon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btniconActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(110, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(117, 117, 117)
                 .addComponent(jLabel1)
-                .addGap(107, 107, 107))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
+                .addComponent(btnicon, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(btnicon, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -106,38 +124,53 @@ public final class daftar extends javax.swing.JFrame {
 
         txtpass.setText("jPasswordField1");
 
-        btnid.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnid.setText("ID");
+        btnbatal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnbatal.setText("Batal");
+        btnbatal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnbatalMouseClicked(evt);
+            }
+        });
+        btnbatal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbatalActionPerformed(evt);
+            }
+        });
 
-        txtidlogin.setText("jTextField1");
+        btnconfirm.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnconfirm.setText("Confirm Password");
+
+        txtpass2.setText("jPasswordField1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnnama)
-                            .addComponent(btnpass)
-                            .addComponent(btnid))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtnama, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                            .addComponent(txtpass)
-                            .addComponent(txtidlogin)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
+                        .addGap(67, 67, 67)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(btndaftar)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnnama)
+                            .addComponent(btnpass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnconfirm))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtpass, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtnama, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtpass2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(71, 71, 71)
+                        .addComponent(btndaftar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnbatal)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,10 +178,6 @@ public final class daftar extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnid)
-                    .addComponent(txtidlogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtnama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -157,41 +186,79 @@ public final class daftar extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnpass)
                     .addComponent(txtpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addComponent(btndaftar)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnconfirm)
+                    .addComponent(txtpass2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btndaftar)
+                    .addComponent(btnbatal))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+   
     private void btndaftarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndaftarActionPerformed
         // TODO add your handling code here:              
-          if(txtnama.getText().equals("") || txtpass.getText().equals("")) {
-     if (txtnama.getText().equals("") || txtpass.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Data Belum Lengkap");
-        } else {
-            try {
-                koneksi konek = new koneksi();
-                Connection conn = konek.getKoneksi();
-                String sql = "INSERT INTO login (nama, password, idlogin) VALUES (?, ?, ?)";
-                PreparedStatement stmt = conn.prepareStatement(sql);
-                stmt.setString(1, txtidlogin.getText());
-                stmt.setString(2, txtnama.getText());
-                stmt.setString(2, new String(txtpass.getPassword()));
-                
-                stmt.executeUpdate();
+    String username = txtnama.getText().trim();
+    String password = new String(txtpass.getPassword());
+    String confirmPassword = new String(txtpass2.getPassword());
 
-                JOptionPane.showMessageDialog(null, "Daftar Berhasil");
-                login loginmasuk = new login();
-                loginmasuk.setVisible(true);
-                dispose();
-            } catch (HeadlessException | SQLException e) {
-                JOptionPane.showMessageDialog(null, "Gagal Daftar: " + e.getMessage());
-            }
+    if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Semua kolom harus diisi!");
+    } else if (!password.equals(confirmPassword)) {
+        JOptionPane.showMessageDialog(null, "Password tidak cocok!");
+    } else {
+        try {
+            Connection conn = koneksi2.getConnection();
+            String sql = "INSERT INTO login (username, password) VALUES (?, ?)";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, username);
+            pst.setString(2, password);
+
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Pendaftaran berhasil!");
+
+            this.setVisible(false);
+            new login().setVisible(true);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Pendaftaran gagal: " + e.getMessage());
         }
       }
     }//GEN-LAST:event_btndaftarActionPerformed
+
+    private void btnbatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbatalActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        new login().setVisible(true);
+    }//GEN-LAST:event_btnbatalActionPerformed
+
+    private void btnbatalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnbatalMouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+        new login().setVisible(true);
+    }//GEN-LAST:event_btnbatalMouseClicked
+
+    private void btniconActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btniconActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btniconActionPerformed
+
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+        // TODO add your handling code here:
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
+        this.setLocation(x - xx, y - xy);
+    }//GEN-LAST:event_formMouseDragged
+
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        // TODO add your handling code here:
+        xx = evt.getX();
+        xy = evt.getY();
+    }//GEN-LAST:event_formMousePressed
 
     /**
      * @param args the command line arguments
@@ -229,16 +296,18 @@ public final class daftar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnbatal;
+    private javax.swing.JButton btnconfirm;
     private javax.swing.JButton btndaftar;
-    private javax.swing.JButton btnid;
+    private javax.swing.JButton btnicon;
     private javax.swing.JButton btnnama;
     private javax.swing.JButton btnpass;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtidlogin;
     private javax.swing.JTextField txtnama;
     private javax.swing.JPasswordField txtpass;
+    private javax.swing.JPasswordField txtpass2;
     // End of variables declaration//GEN-END:variables
 }
