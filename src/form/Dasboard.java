@@ -4,7 +4,7 @@
  */
 package form;
 
-import form.teknisi;
+import form.karyawan;
 import javax.swing.JInternalFrame;
 import java.io.File;
 import java.io.InputStream;
@@ -172,7 +172,7 @@ public class Dasboard extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
-        new teknisi().setVisible(true);
+        new karyawan().setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged

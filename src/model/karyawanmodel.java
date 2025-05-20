@@ -13,44 +13,38 @@ import javax.swing.JOptionPane;
  *
  * @author Aria
  */
-public class teknisimodel {
-     String idteknisi, namateknisi, alamatteknisi, divisibagian;
+public class karyawanmodel {
+    String idkaryawan, namakaryawan, alamatkaryawan, namajabatan; 
 
-    public String getIdteknisi() {
-        return idteknisi;
+    public String getIdkaryawan() {
+        return idkaryawan;
     }
 
-    public void setIdteknisi(String idteknisi) {
-        this.idteknisi = idteknisi;
+    public void setIdkaryawan(String idkaryawan) {
+        this.idkaryawan = idkaryawan;
     }
 
-    public String getNamateknisi() {
-        return namateknisi;
+    public String getNamakaryawan() {
+        return namakaryawan;
     }
 
-    public void setNamateknisi(String namateknisi) {
-        this.namateknisi = namateknisi;
+    public void setNamakaryawan(String namakaryawan) {
+        this.namakaryawan = namakaryawan;
     }
     
-    public String getAlamatteknisi() {
-        return alamatteknisi;
+    public String getAlamatkaryawan() {
+        return alamatkaryawan;
     }
 
-    public void setAlamatteknisi(String alamatteknisi) {
-        this.alamatteknisi = alamatteknisi;
+    public void setAlamatkaryawan(String alamatkaryawan) {
+        this.alamatkaryawan = alamatkaryawan;
     }
     
-    public String getDivisibagian() {
-        return divisibagian;
-    }
-
-    public void setDivisibagian(String divisibagian) {
-        this.divisibagian = divisibagian;
-    }
-       
+    
+    
     
     koneksi db = null;
-    public teknisimodel() {
+    public karyawanmodel() {
         db = new koneksi ();                
     }
             
@@ -63,17 +57,16 @@ public class teknisimodel {
     }
     
    public List tampil() {
-       List<teknisimodel> data = new ArrayList<>();
+       List<karyawanmodel> data = new ArrayList<>();
        ResultSet hasil = null;
        try {
-            String sql = "select * from teknisi";
+            String sql = "select * from karyawan";
             hasil = db.ambilData(sql);
             while(hasil.next() ) {
-                teknisimodel km = new teknisimodel();
-                km.setIdteknisi(hasil.getString("idteknisi"));
-                km.setNamateknisi(hasil.getString("namateknisi"));
-                km.setAlamatteknisi(hasil.getString("alamatteknisi"));
-                km.setDivisibagian(hasil.getString("divisibagian"));
+                karyawanmodel km = new karyawanmodel();
+                km.setIdkaryawan(hasil.getString("idkaryawan"));
+                km.setNamakaryawan(hasil.getString("namakaryawan"));
+                km.setAlamatkaryawan(hasil.getString("alamatkaryawan"));
                 data.add(km);
             }
             db.tutupKoneksi (hasil);
@@ -84,21 +77,21 @@ public class teknisimodel {
    }
 
 public void tambah() {
-    String sql = "insert into teknisi values (null,'" + namateknisi + "','" + alamatteknisi + "', '" + divisibagian + "') ";
+    String sql = "insert into karyawan values (null,'" + namakaryawan + "','" + namajabatan + "','" + alamatkaryawan + "') ";
     db.simpanData(sql);
     db.tutupKoneksi(null);
 }
 
 public void hapus () {
-    String sql = "delete from teknisi where idteknisi = '"+idteknisi+"' ";
+    String sql = "delete from karyawan where idkaryawan = '"+idkaryawan+"' ";
     db.simpanData(sql);
     db.tutupKoneksi(null);
     }
 
 //edit data
 public void edit() {
-    String sql = "UPDATE teknisi SET namateknisi = '" + namateknisi+ 
-            "', alamatteknisi = '" + alamatteknisi + "',divisibagian = '" + divisibagian + "' WHERE idteknisi = '" + idteknisi + "'";
+    String sql = "UPDATE karyawan SET namakaryawan = '" + namakaryawan+ 
+            "', alamatkaryawan = '" + alamatkaryawan + "' WHERE idkaryawan = '" + idkaryawan + "'";
             db.simpanData(sql);
             db.tutupKoneksi(null);
         }
@@ -106,18 +99,17 @@ public void edit() {
 
 //untuk pencarian daata
 public List caridata(String cari) {
-    List<teknisimodel> data = new ArrayList<>();
+    List<karyawanmodel> data = new ArrayList<>();
     ResultSet hasil = null;
     try {
-        String sql = "select * from teknisi where idteknisi like "
-                + "'%" +cari+ "%'  or namateknisi like '%"+cari+"%' or alamatteknisi like '%"+cari+"%' or divisibagian like '%"+cari+"%'";
+        String sql = "select * from karyawan where idkaryawan like "
+                + "'%" +cari+ "%'  or namakaryawan like '%"+cari+"%' or alamatkaryawan like '%"+cari+"%' or divisibagian like '%"+cari+"%'";
         hasil = db.ambilData(sql);
         while (hasil.next()){
-        teknisimodel km = new teknisimodel();
-        km.setIdteknisi(hasil.getString("idteknisi"));
-        km.setNamateknisi(hasil.getString("namateknisi"));
-        km.setAlamatteknisi(hasil.getString("alamatteknisi"));
-        km.setDivisibagian(hasil.getString("divisibagian"));
+        karyawanmodel km = new karyawanmodel();
+        km.setIdkaryawan(hasil.getString("idkaryawan"));
+        km.setNamakaryawan(hasil.getString("namakaryawan"));
+        km.setAlamatkaryawan(hasil.getString("alamatkaryawan"));
         data.add(km);
         }
         db.tutupKoneksi(hasil);

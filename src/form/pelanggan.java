@@ -377,7 +377,7 @@ public final class pelanggan extends javax.swing.JDialog {
         // TODO add your handling code here:
         if (txtnamapelanggan.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Data belum Lengkap");
-        }else if(txtnamapelanggan.getText().isEmpty()){
+        }else if(txtalamatpelanggan.getText().isEmpty()){
                JOptionPane.showMessageDialog(null, "Data belum Lengkap");
         }else{
             km.setIdpelanggan(txtidpelanggan.getText());

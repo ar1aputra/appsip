@@ -3,74 +3,104 @@
  * and open the template in the editor.
  */
 package form;
-import javax.swing.table.DefaultTableModel;
-import model.teknisimodel;
+import aplikasi.isp.Jabatan;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.koneksi2;
+import model.karyawanmodel;
+
 /**
  *
  * @author Aria
  */
-public class teknisi extends javax.swing.JDialog {
+public class karyawan extends javax.swing.JDialog {
     int xx, xy;
-    teknisimodel km = new teknisimodel();
+    karyawanmodel km = new karyawanmodel();
     DefaultTableModel tbl;
-    List<teknisimodel> datateknisi = new ArrayList<>();
-    public teknisi() {
+    List<karyawanmodel> datateknisi = new ArrayList<>();
+    public karyawan() {
     super((java.awt.Frame)null, true);
     initComponents();
+    combobox();
     buatkolom();
-    tampilteknisi();
+    tampilkaryawan();
     bersih();        
     kondisi(false);
     aturtombol();
-    txtidteknisi.setEnabled(false);
-    setLocationRelativeTo(null);
+    txtidkaryawan.setEnabled(false);
+    setLocationRelativeTo(null);    
     }
 
     /**
      * Creates new form teknisi
      */
-    public teknisi(java.awt.Frame parent, boolean modal) {
+    public karyawan(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        combobox();
         buatkolom();
-        tampilteknisi();
+        tampilkaryawan();
         bersih();        
         kondisi(false);
         aturtombol();
-        txtidteknisi.setEnabled(false); 
+        txtidkaryawan.setEnabled(false); 
     }
     
     private void click(){
-    txtidteknisi.setText(tblteknisi.getValueAt(tblteknisi.getSelectedRow(), 0).toString());
-    txtnamateknisi.setText(tblteknisi.getValueAt(tblteknisi.getSelectedRow(),1).toString());
-    txtalamatteknisi.setText(tblteknisi.getValueAt(tblteknisi.getSelectedRow(),2).toString());
-    txtdivisibagian.setText(tblteknisi.getValueAt(tblteknisi.getSelectedRow(),3).toString());             
+    txtidkaryawan.setText(tblkaryawan.getValueAt(tblkaryawan.getSelectedRow(), 0).toString());
+    txtnamakaryawan.setText(tblkaryawan.getValueAt(tblkaryawan.getSelectedRow(),1).toString());
+    txtalamatkaryawan.setText(tblkaryawan.getValueAt(tblkaryawan.getSelectedRow(),2).toString());
     }
     
-    public void tampilteknisi (){
+    public void combobox (){
+        try {
+        Connection conn = koneksi2.getConnection();
+        String sql = "SELECT * FROM jabatan";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        btncombojabatan.removeAllItems(); 
+        btncombojabatan.addItem(null);    
+        while (rs.next()) {
+            int kode = rs.getInt("kodejabatan");
+            String nama = rs.getString("namajabatan");
+            btncombojabatan.addItem(new Jabatan(kode, nama));
+        }
+
+        rs.close();
+        ps.close();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Gagal load jabatan: " + e.getMessage());
+     }
+   }
+    
+    public void tampilkaryawan (){
         tbl.getDataVector().removeAllElements();
         tbl.fireTableDataChanged();
         datateknisi.clear();
         datateknisi = km.tampil();
         for(int i= 0; i < datateknisi.size(); i++){
-            Object[] data = new Object[4];
-            data[0] = datateknisi.get(i).getIdteknisi();
-            data[1] = datateknisi.get(i).getNamateknisi();
-            data[2] = datateknisi.get(i).getAlamatteknisi();
-            data[3] = datateknisi.get(i).getDivisibagian();
+            Object[] data = new Object[3];
+            data[0] = datateknisi.get(i).getIdkaryawan();
+            data[1] = datateknisi.get(i).getNamakaryawan();
+            data[2] = datateknisi.get(i).getAlamatkaryawan();
+            //data[2] = datateknisi.get(i).getJabata();
+            
             tbl.addRow(data);
          }
     }
-         
+    
+            
      public void bersih() {
-       txtidteknisi.setText(null);
-       txtnamateknisi.setText(null);
-       txtalamatteknisi.setText (null);
-       txtdivisibagian.setText (null);
+       txtidkaryawan.setText(null);
+       txtnamakaryawan.setText(null);
+       txtalamatkaryawan.setText (null);
        txtcari.setText(null);
    }
      
@@ -82,25 +112,26 @@ public class teknisi extends javax.swing.JDialog {
     }
     
     public void kondisi (boolean x) {
-    txtnamateknisi.setEnabled (x);
-    txtalamatteknisi.setEnabled (x);
-    txtdivisibagian.setEnabled (x);
+    txtnamakaryawan.setEnabled (x);
+    txtalamatkaryawan.setEnabled (x);
     }
            
     public void buatkolom(){
     tbl = new DefaultTableModel ();
-    tbl.addColumn ("ID Teknisi");
-    tbl.addColumn ("Nama Teknisi");
-    tbl.addColumn ("Alamat Teknisi");
-    tbl.addColumn ("Divisi Bagian");
+    tbl.addColumn ("ID");
+    tbl.addColumn ("Nama");
+    tbl.addColumn ("Alamat");
+    tbl.addColumn("Jabatan");
+    tbl.addColumn("Gaji");
    
-    tblteknisi.setModel (tbl);
+    tblkaryawan.setModel (tbl);
    
-    tblteknisi.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_OFF);
-    tblteknisi.getColumnModel().getColumn(0).setPreferredWidth(40);
-    tblteknisi.getColumnModel().getColumn(1).setPreferredWidth(150);
-    tblteknisi.getColumnModel().getColumn(2).setPreferredWidth(200);
-    tblteknisi.getColumnModel().getColumn(3).setPreferredWidth(200);
+    tblkaryawan.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_OFF);
+    tblkaryawan.getColumnModel().getColumn(0).setPreferredWidth(40);
+    tblkaryawan.getColumnModel().getColumn(1).setPreferredWidth(150);
+    tblkaryawan.getColumnModel().getColumn(2).setPreferredWidth(215);
+    tblkaryawan.getColumnModel().getColumn(3).setPreferredWidth(100);
+    tblkaryawan.getColumnModel().getColumn(4).setPreferredWidth(100);
     }  
 
 
@@ -114,28 +145,31 @@ public class teknisi extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         btnkeluar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        txtidteknisi = new javax.swing.JTextField();
-        txtnamateknisi = new javax.swing.JTextField();
-        txtalamatteknisi = new javax.swing.JTextField();
-        txtdivisibagian = new javax.swing.JTextField();
+        txtidkaryawan = new javax.swing.JTextField();
+        txtnamakaryawan = new javax.swing.JTextField();
+        txtalamatkaryawan = new javax.swing.JTextField();
         btntambah = new javax.swing.JButton();
         btnsimpan = new javax.swing.JButton();
         btnhapus = new javax.swing.JButton();
         btnedit = new javax.swing.JButton();
         btncetak = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblteknisi = new javax.swing.JTable();
+        tblkaryawan = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         txtcari = new javax.swing.JTextField();
+        btncombojabatan = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -194,16 +228,11 @@ public class teknisi extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Alamat");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setText("Divisi Bagian");
+        txtidkaryawan.setText("jTextField1");
 
-        txtidteknisi.setText("jTextField1");
+        txtnamakaryawan.setText("jTextField2");
 
-        txtnamateknisi.setText("jTextField2");
-
-        txtalamatteknisi.setText("jTextField3");
-
-        txtdivisibagian.setText("jTextField4");
+        txtalamatkaryawan.setText("jTextField3");
 
         btntambah.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btntambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/icons8-plus-16.png"))); // NOI18N
@@ -244,8 +273,13 @@ public class teknisi extends javax.swing.JDialog {
         btncetak.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btncetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/icons8-print-16.png"))); // NOI18N
         btncetak.setText("Cetak");
+        btncetak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncetakActionPerformed(evt);
+            }
+        });
 
-        tblteknisi.setModel(new javax.swing.table.DefaultTableModel(
+        tblkaryawan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -264,12 +298,12 @@ public class teknisi extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tblteknisi.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblkaryawan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblteknisiMouseClicked(evt);
+                tblkaryawanMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblteknisi);
+        jScrollPane1.setViewportView(tblkaryawan);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("CARI");
@@ -281,31 +315,35 @@ public class teknisi extends javax.swing.JDialog {
             }
         });
 
+        btncombojabatan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncombojabatanActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel6.setText("JABATAN");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btntambah)
                 .addGap(32, 32, 32)
                 .addComponent(btnsimpan)
-                .addGap(32, 32, 32)
+                .addGap(18, 18, 18)
                 .addComponent(btnhapus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
                 .addComponent(btnedit)
-                .addGap(44, 44, 44)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(btncetak)
                 .addGap(19, 19, 19))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtcari, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,15 +351,20 @@ public class teknisi extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel4))
-                                .addGap(28, 28, 28)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel6))
+                                .addGap(103, 103, 103)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtdivisibagian, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtnamateknisi, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtalamatteknisi, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtidteknisi, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(txtalamatkaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtidkaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtnamakaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btncombojabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtcari, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(67, 67, 67))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,33 +373,33 @@ public class teknisi extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtidteknisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtidkaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtnamateknisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtnamakaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txtalamatteknisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtdivisibagian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtalamatkaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btncombojabatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btntambah)
                     .addComponent(btnsimpan)
                     .addComponent(btnhapus)
                     .addComponent(btnedit)
                     .addComponent(btncetak))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtcari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 50, Short.MAX_VALUE))
+                    .addComponent(txtcari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(0, 22, Short.MAX_VALUE))
         );
 
         pack();
@@ -384,16 +427,32 @@ public class teknisi extends javax.swing.JDialog {
 
     private void btnsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimpanActionPerformed
         // TODO add your handling code here:
-        if (txtnamateknisi.getText().isEmpty()) {
+        if (txtnamakaryawan.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Data belum Lengkap");
-        }else if(txtnamateknisi.getText().isEmpty()){
+        }else if(txtalamatkaryawan.getText().isEmpty()){
                JOptionPane.showMessageDialog(null, "Data belum Lengkap");
-        }else{
-            km.setIdteknisi(txtidteknisi.getText());
-            km.setNamateknisi(txtnamateknisi.getText());
-            km.setAlamatteknisi(txtalamatteknisi.getText());
-            km.setDivisibagian(txtdivisibagian.getText());
-         
+        }
+       try {          
+    String nama = txtnamakaryawan.getText();
+    String alamat = txtalamatkaryawan.getText();
+    Jabatan jab = (Jabatan) btncombojabatan.getSelectedItem();
+    int kodejabatan = jab.getKode();
+    String sql = "INSERT INTO karyawan (idkaryawan, namakaryawan, alamatkaryawan, kodejabatan) VALUES (null, ?, ?, ?)";
+    Connection conn = koneksi2.getConnection();
+    PreparedStatement pstm = conn.prepareStatement(sql);
+    pstm.setString(1, nama);
+    pstm.setString(2, alamat);
+    pstm.setInt(3, kodejabatan);
+    pstm.executeUpdate();
+
+    JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
+    tampilkaryawan();
+    bersih();
+
+    } catch (Exception e) {
+    JOptionPane.showMessageDialog(null, "Salah Simpan data: " + e.getMessage());
+    
+           
         if(btntambah.getText().equalsIgnoreCase("batal")) {
             km.tambah();
         }else if(btnedit.getText().equalsIgnoreCase("batal")){
@@ -401,16 +460,16 @@ public class teknisi extends javax.swing.JDialog {
         }
             bersih();
             kondisi(false);
-            tampilteknisi();
+            tampilkaryawan();
             aturtombol();
             btntambah.setText("Tambah");
             btnedit.setText("edit");
-        }                         
+      }
     }//GEN-LAST:event_btnsimpanActionPerformed
 
     private void btnhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapusActionPerformed
         // TODO add your handling code here:
-        if (txtidteknisi.getText().isEmpty()) {
+        if (txtidkaryawan.getText().isEmpty()) {
         JOptionPane.showMessageDialog(null, "Silakan pilih data yang ingin dihapus");
         return;
     }
@@ -423,25 +482,25 @@ public class teknisi extends javax.swing.JDialog {
     );
 
     if (confirm == JOptionPane.YES_OPTION) {
-        km.setIdteknisi(txtidteknisi.getText());
+        km.setIdkaryawan(txtidkaryawan.getText());
         km.hapus();
         JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
 
         // Refresh tampilan
         bersih();
-        tampilteknisi();
+        tampilkaryawan();
         kondisi(false);
         aturtombol();
      }
     }//GEN-LAST:event_btnhapusActionPerformed
 
-    private void tblteknisiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblteknisiMouseClicked
+    private void tblkaryawanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblkaryawanMouseClicked
         // TODO add your handling code here:
         click();
         btnsimpan.setEnabled(false);
         btnhapus.setEnabled(true);
         btnedit.setEnabled(true);
-    }//GEN-LAST:event_tblteknisiMouseClicked
+    }//GEN-LAST:event_tblkaryawanMouseClicked
 
     private void btnkeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnkeluarActionPerformed
         // TODO add your handling code here:
@@ -451,7 +510,7 @@ public class teknisi extends javax.swing.JDialog {
     private void btneditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditActionPerformed
         // TODO add your handling code here:
         if (btnedit.getText().equalsIgnoreCase("Edit")) {
-        if (txtidteknisi.getText().isEmpty()) {
+        if (txtidkaryawan.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Silakan pilih data yang akan diedit");
             return;
         }
@@ -475,11 +534,10 @@ public class teknisi extends javax.swing.JDialog {
         datateknisi.clear();
         datateknisi = km.caridata(txtcari.getText());
         for (int i = 0; i < datateknisi.size(); i++) {
-            Object[] data = new Object[4];
-            data[0] = datateknisi.get(i).getIdteknisi();
-            data[1] = datateknisi.get(i).getNamateknisi();
-            data[2] = datateknisi.get(i).getAlamatteknisi();
-            data[3] = datateknisi.get(i).getDivisibagian();
+            Object[] data = new Object[3];
+            data[0] = datateknisi.get(i).getIdkaryawan();
+            data[1] = datateknisi.get(i).getNamakaryawan();
+            data[2] = datateknisi.get(i).getAlamatkaryawan();
             tbl.addRow(data);
         }
     }//GEN-LAST:event_txtcariKeyTyped
@@ -496,6 +554,14 @@ public class teknisi extends javax.swing.JDialog {
         int y = evt.getYOnScreen();
         this.setLocation(x - xx, y - xy);
     }//GEN-LAST:event_formMouseDragged
+
+    private void btncombojabatanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncombojabatanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btncombojabatanActionPerformed
+
+    private void btncetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncetakActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btncetakActionPerformed
 
     /**
      * @param args the command line arguments
@@ -514,20 +580,20 @@ public class teknisi extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(teknisi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(karyawan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(teknisi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(karyawan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(teknisi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(karyawan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(teknisi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(karyawan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                teknisi dialog = new teknisi(new javax.swing.JFrame(), true);
+                karyawan dialog = new karyawan(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -540,11 +606,13 @@ public class teknisi extends javax.swing.JDialog {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btncetak;
+    private javax.swing.JComboBox btncombojabatan;
     private javax.swing.JButton btnedit;
     private javax.swing.JButton btnhapus;
     private javax.swing.JButton btnkeluar;
     private javax.swing.JButton btnsimpan;
     private javax.swing.JButton btntambah;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -554,11 +622,10 @@ public class teknisi extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblteknisi;
-    private javax.swing.JTextField txtalamatteknisi;
+    private javax.swing.JTable tblkaryawan;
+    private javax.swing.JTextField txtalamatkaryawan;
     private javax.swing.JTextField txtcari;
-    private javax.swing.JTextField txtdivisibagian;
-    private javax.swing.JTextField txtidteknisi;
-    private javax.swing.JTextField txtnamateknisi;
+    private javax.swing.JTextField txtidkaryawan;
+    private javax.swing.JTextField txtnamakaryawan;
     // End of variables declaration//GEN-END:variables
 }
