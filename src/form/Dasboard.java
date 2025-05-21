@@ -204,7 +204,7 @@ public class Dasboard extends javax.swing.JFrame {
         e.printStackTrace();
         System.out.println("Path: " + getClass().getResource("/report/reportPelanggan.jasper"));
         }
-        this.setVisible(false);
+        this.setVisible(true);
     }//GEN-LAST:event_menucetakpelangganActionPerformed
 
     private void menupelangganbaruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menupelangganbaruActionPerformed
