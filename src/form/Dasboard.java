@@ -5,19 +5,10 @@
 package form;
 
 import form.karyawan;
-import javax.swing.JInternalFrame;
-import java.io.File;
-import java.io.InputStream;
-import java.sql.Connection;
 import javax.swing.JOptionPane;
 import model.koneksi2;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**

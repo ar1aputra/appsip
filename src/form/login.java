@@ -13,7 +13,7 @@ import model.koneksi2;
  *
  * @author Administrator
  */
-public class login extends javax.swing.JFrame {
+public final class login extends javax.swing.JFrame {
     int xx, xy;
     Connection con;
     Statement stat;

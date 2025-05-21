@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 package form;
-import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
 import model.koneksi2;
 
 /**
