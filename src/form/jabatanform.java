@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.jabatanmodel;
+import javax.swing.table.DefaultTableModel;
+import model.produkmodel;
 
 /**
  *
@@ -16,24 +18,55 @@ public class jabatanform extends javax.swing.JFrame {
     jabatanmodel km = new jabatanmodel();
     List<jabatanmodel> datajabatan = new ArrayList<>();
     int xx, xy;
+    DefaultTableModel tbl;
 
     /**
      * Creates new form jabatan
-     */
-    
+     */    
     
     public jabatanform() {
         initComponents();
         bersih();
         setLocationRelativeTo(null);
-        
+        buatkolom();
+        tampiljabatan();        
     }
     
     public void bersih() {
        txtkodejabatan.setText(null);
        txtnamajabatan.setText(null);
        txtgajijabatan.setText (null);
+       txtcari.setText(null);
    }
+    
+    public void buatkolom(){
+    tbl = new DefaultTableModel ();
+    tbl.addColumn ("KODE");
+    tbl.addColumn ("JABATAN");
+    tbl.addColumn ("SLARY");
+   
+    tbljabatan.setModel (tbl);
+   
+    tbljabatan.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_OFF);
+    tbljabatan.getColumnModel().getColumn(0).setPreferredWidth(62);
+    tbljabatan.getColumnModel().getColumn(1).setPreferredWidth(150);
+    tbljabatan.getColumnModel().getColumn(2).setPreferredWidth(105);
+    }  
+     
+     public void tampiljabatan (){
+        tbl.getDataVector().removeAllElements();
+        tbl.fireTableDataChanged();
+        datajabatan.clear();
+        datajabatan = km.tampil();
+        for(int i= 0; i < datajabatan.size(); i++){
+            Object[] data = new Object[3];
+            data[0] = datajabatan.get(i).getKodejabatan();
+            data[1] = datajabatan.get(i).getNamajabatan();
+            data[2] = datajabatan.get(i).getGajijabatan();            
+            tbl.addRow(data);
+         }
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,6 +103,11 @@ public class jabatanform extends javax.swing.JFrame {
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 formMouseDragged(evt);
+            }
+        });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                formKeyTyped(evt);
             }
         });
 
@@ -296,18 +334,23 @@ public class jabatanform extends javax.swing.JFrame {
 
     private void txtcariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcariKeyTyped
         // TODO add your handling code here:
-//        tbl.getDataVector().removeAllElements();
-//        tbl.fireTableDataChanged();
-//        datateknisi.clear();
-//        datateknisi = km.caridata(txtcari.getText());
-//        for (int i = 0; i < datateknisi.size(); i++) {
-//            Object[] data = new Object[3];
-//            data[0] = datateknisi.get(i).getIdkaryawan();
-//            data[1] = datateknisi.get(i).getNamakaryawan();
-//            data[2] = datateknisi.get(i).getAlamatkaryawan();
-//            tbl.addRow(data);
-//        }
+        tbl.getDataVector().removeAllElements();
+        tbl.fireTableDataChanged();
+        datajabatan.clear();
+        datajabatan = km.caridata(txtcari.getText());
+        for (int i = 0; i < datajabatan.size(); i++) {
+            Object[] data = new Object[3];
+            data[0] = datajabatan.get(i).getKodejabatan();
+            data[1] = datajabatan.get(i).getNamajabatan();
+            data[2] = datajabatan.get(i).getGajijabatan();
+            tbl.addRow(data);
+        }
     }//GEN-LAST:event_txtcariKeyTyped
+
+    private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
+        // TODO add your handling code here:     
+        
+    }//GEN-LAST:event_formKeyTyped
 
     /**
      * @param args the command line arguments

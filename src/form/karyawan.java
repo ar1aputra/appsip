@@ -312,6 +312,11 @@ public final class karyawan extends javax.swing.JFrame {
         jLabel7.setText("CARI");
 
         txtcari.setText("jTextField1");
+        txtcari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtcariActionPerformed(evt);
+            }
+        });
         txtcari.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtcariKeyTyped(evt);
@@ -354,7 +359,6 @@ public final class karyawan extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btntambah)
                         .addGap(32, 32, 32)
                         .addComponent(btnsimpan)
@@ -581,6 +585,10 @@ public final class karyawan extends javax.swing.JFrame {
         }
         //this.setVisible(true);    
     }//GEN-LAST:event_btncetakActionPerformed
+
+    private void txtcariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcariActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtcariActionPerformed
 
     /**
      * @param args the command line arguments

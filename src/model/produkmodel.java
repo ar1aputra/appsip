@@ -65,14 +65,14 @@ public class produkmodel {
     List<produkmodel> data = new ArrayList<>();
     ResultSet hasil = null;
     try {
-        String sql = "select * from produk where idkaryawan like "
-                + "'%" +cari+ "%'  or namaproduk like '%"+cari+"%' or produk like '%"+cari+"%' or hargaproduk like '%"+cari+"%'";
+        String sql = "select * from produk where kodeproduk like "
+                + "'%" +cari+ "%'  or namaproduk like '%"+cari+"%' or hargaproduk like '%"+cari+"%'";
         hasil = db.ambilData(sql);
         while (hasil.next()){
-        karyawanmodel km = new karyawanmodel();
-        km.setIdkaryawan(hasil.getString("idkaryawan"));
-        km.setNamakaryawan(hasil.getString("namakaryawan"));
-        km.setAlamatkaryawan(hasil.getString("alamatkaryawan"));
+        produkmodel km = new produkmodel();
+        km.setKodeproduk(hasil.getString("kodeproduk"));
+        km.setNamaproduk(hasil.getString("namaproduk"));
+        km.setHargaproduk(hasil.getString("hargaproduk"));
         data.add(km);
         }
         db.tutupKoneksi(hasil);
@@ -80,6 +80,25 @@ public class produkmodel {
         JOptionPane.showMessageDialog(null,"Salah cari data" +e);
     }
     return data;
- } 
+ }
+    public List tampil() {
+       List<produkmodel> data = new ArrayList<>();
+       ResultSet hasil = null;
+       try {
+            String sql = "select * from produk";
+            hasil = db.ambilData(sql);
+            while(hasil.next() ) {
+                produkmodel km = new produkmodel();
+                km.setKodeproduk(hasil.getString("kodeproduk"));
+                km.setNamaproduk(hasil.getString("namaproduk"));
+                km.setHargaproduk(hasil.getString("hargaproduk"));
+                data.add(km);
+            }
+            db.tutupKoneksi (hasil);
+        }catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Salah tampil" +e);
+    }
+     return data;    
+   }
     
 }

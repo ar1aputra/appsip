@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.produkmodel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,6 +17,7 @@ import model.produkmodel;
 public final class produk extends javax.swing.JFrame {
     int xx, xy;
     produkmodel km = new produkmodel();
+    DefaultTableModel tbl;
     List<produkmodel> dataproduk = new ArrayList<>();
     
     /**
@@ -25,14 +27,44 @@ public final class produk extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         bersih();
+        buatkolom();
+        tampilproduk();
     }
     
      public void bersih() {
        txtkodeproduk.setText(null);
        txtproduk.setText(null);
        txtharga.setText (null);
-       //txtcari.setText(null);
+       txtcari.setText(null);
    }
+     
+     public void buatkolom(){
+    tbl = new DefaultTableModel ();
+    tbl.addColumn ("KODE");
+    tbl.addColumn ("PRODUK");
+    tbl.addColumn ("HARGA");
+   
+    tblproduk.setModel (tbl);
+   
+    tblproduk.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_OFF);
+    tblproduk.getColumnModel().getColumn(0).setPreferredWidth(62);
+    tblproduk.getColumnModel().getColumn(1).setPreferredWidth(150);
+    tblproduk.getColumnModel().getColumn(2).setPreferredWidth(105);
+    }  
+     
+     public void tampilproduk (){
+        tbl.getDataVector().removeAllElements();
+        tbl.fireTableDataChanged();
+        dataproduk.clear();
+        dataproduk = km.tampil();
+        for(int i= 0; i < dataproduk.size(); i++){
+            Object[] data = new Object[3];
+            data[0] = dataproduk.get(i).getKodeproduk();
+            data[1] = dataproduk.get(i).getNamaproduk();
+            data[2] = dataproduk.get(i).getHargaproduk();            
+            tbl.addRow(data);
+         }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -123,7 +155,12 @@ public final class produk extends javax.swing.JFrame {
         });
 
         btnhapus.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnhapus.setText("HAPUS");
+        btnhapus.setText("BATAL");
+        btnhapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnhapusActionPerformed(evt);
+            }
+        });
 
         txtharga.setText("jTextField1");
 
@@ -156,6 +193,11 @@ public final class produk extends javax.swing.JFrame {
         jLabel7.setText("CARI");
 
         txtcari.setText("jTextField1");
+        txtcari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtcariActionPerformed(evt);
+            }
+        });
         txtcari.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtcariKeyTyped(evt);
@@ -182,9 +224,6 @@ public final class produk extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(67, 67, 67)
                         .addComponent(btnsimpan)
                         .addGap(39, 39, 39)
@@ -194,7 +233,11 @@ public final class produk extends javax.swing.JFrame {
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
                         .addComponent(txtcari, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -268,18 +311,27 @@ public final class produk extends javax.swing.JFrame {
 
     private void txtcariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcariKeyTyped
         // TODO add your handling code here:
-//        tbl.getDataVector().removeAllElements();
-//        tbl.fireTableDataChanged();
-//        datateknisi.clear();
-//        datateknisi = km.caridata(txtcari.getText());
-//        for (int i = 0; i < datateknisi.size(); i++) {
-//            Object[] data = new Object[3];
-//            data[0] = datateknisi.get(i).getIdkaryawan();
-//            data[1] = datateknisi.get(i).getNamakaryawan();
-//            data[2] = datateknisi.get(i).getAlamatkaryawan();
-//            tbl.addRow(data);
-//        }
+        tbl.getDataVector().removeAllElements();
+        tbl.fireTableDataChanged();
+        dataproduk.clear();
+        dataproduk = km.caridata(txtcari.getText());
+        for (int i = 0; i < dataproduk.size(); i++) {
+            Object[] data = new Object[3];
+            data[0] = dataproduk.get(i).getKodeproduk();
+            data[1] = dataproduk.get(i).getNamaproduk();
+            data[2] = dataproduk.get(i).getHargaproduk();
+            tbl.addRow(data);
+        }
     }//GEN-LAST:event_txtcariKeyTyped
+
+    private void txtcariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcariActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtcariActionPerformed
+
+    private void btnhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapusActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnhapusActionPerformed
 
     /**
      * @param args the command line arguments
