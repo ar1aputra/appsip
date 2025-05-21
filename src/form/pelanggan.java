@@ -55,15 +55,9 @@ public final class pelanggan extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
     
-    private void click(){
-    txtidpelanggan.setText(tblpelanggan.getValueAt(tblpelanggan.getSelectedRow(), 0).toString());
-    txtnamapelanggan.setText(tblpelanggan.getValueAt(tblpelanggan.getSelectedRow(),1).toString());
-    txtalamatpelanggan.setText(tblpelanggan.getValueAt(tblpelanggan.getSelectedRow(),2).toString());
-        kondisi(false);        
-    }
-    
     public void tampilpelanggan() {
-    String[] kolom = {"IDPelanggan", "Nama", "Alamat", "NamaProduk", "Harga"};
+        tbl.getDataVector().removeAllElements();
+        String[] kolom = {"IDPelanggan", "Nama", "Alamat", "NamaProduk", "Harga"};
             tblpelanggan.setModel(tbl);
             datapelanggan = km.tampil();
         for (pelangganmodel k : datapelanggan) {
@@ -448,22 +442,21 @@ public final class pelanggan extends javax.swing.JFrame {
     private void btneditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditActionPerformed
         // TODO add your handling code here:
         if (btnedit.getText().equalsIgnoreCase("Edit")) {
-            if (txtidpelanggan.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Silakan pilih data yang akan diedit");
-                return;
-            }
-
-            kondisi(true);
-            btnedit.setText("Batal");
-            btntambah.setEnabled(false);
-            btnhapus.setEnabled(false);
-            btnsimpan.setEnabled(true);
-        } else {
-            btnedit.setText("Edit");
-            kondisi(false);
-            bersih();
-            aturtombol();
+        if (txtidpelanggan.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Silakan pilih data yang akan diedit");
+            return;
         }
+        kondisi(true);
+        btnedit.setText("batal");
+        btntambah.setEnabled(false);
+        btnhapus.setEnabled(false);
+        btnsimpan.setEnabled(true);
+    } else {
+        btnedit.setText("Edit");
+        kondisi(false);
+        bersih();
+        aturtombol();
+     }
     }//GEN-LAST:event_btneditActionPerformed
 
     private void btnhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapusActionPerformed
@@ -485,8 +478,8 @@ public final class pelanggan extends javax.swing.JFrame {
             km.hapusdata();
             JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
             
+            bersih();
             tampilpelanggan();
-            bersih();            
             kondisi(false);
             aturtombol();
         }
@@ -526,6 +519,7 @@ public final class pelanggan extends javax.swing.JFrame {
             km.edit();
         }
             bersih();
+            tampilpelanggan();
             kondisi(false);
             aturtombol();
             btntambah.setText("Tambah");
@@ -541,10 +535,13 @@ public final class pelanggan extends javax.swing.JFrame {
             btnsimpan.setEnabled(true);
             btnhapus.setEnabled(false);
             btnedit.setEnabled(false);
+            bersih();
         }
 
         else {
             btntambah.setText("Tambah");
+            bersih ();
+            kondisi(false);
             aturtombol();
         }
         kondisi (true);
@@ -552,8 +549,15 @@ public final class pelanggan extends javax.swing.JFrame {
 
     private void tblpelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblpelangganMouseClicked
         // TODO add your handling code here:
-        click();
+        int baris = tblpelanggan.getSelectedRow();
+        txtidpelanggan.setText(tblpelanggan.getModel().getValueAt(baris, 0).toString());
+        txtnamapelanggan.setText(tblpelanggan.getModel().getValueAt(baris, 1).toString());
+        txtalamatpelanggan.setText(tblpelanggan.getModel().getValueAt(baris, 2).toString());
+        
+        btntambah.setText("Tambah");
+        btnedit.setText("edit");
         btnsimpan.setEnabled(false);
+        btntambah.setEnabled(true);
         btnhapus.setEnabled(true);
         btnedit.setEnabled(true);
     }//GEN-LAST:event_tblpelangganMouseClicked

@@ -125,7 +125,7 @@ public void hapusdata () {
 //edit data
 public void edit() {
     String sql = "UPDATE pelanggan SET namapelanggan = '" + namapelanggan + 
-            "', alamatpelanggan = '" + alamatpelanggan + "' WHERE idpelanggan = '" + idpelanggan + "'";
+            "', alamatpelanggan = '" + alamatpelanggan + "' , namaproduk = '" + namaproduk + "' WHERE idpelanggan = '" + idpelanggan + "'";
             db.simpanData(sql);
             db.tutupKoneksi(null);
         }

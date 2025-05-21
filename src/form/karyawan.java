@@ -65,7 +65,8 @@ public final class karyawan extends javax.swing.JFrame {
     
     public void tampilkaryawan() {
     // Buat header kolom tabel
-    String[] kolom = {"ID Karyawan", "Nama", "Alamat", "NamaJabatan", "Gaji"};
+        tbl.getDataVector().removeAllElements();
+        String[] kolom = {"ID Karyawan", "Nama", "Alamat", "NamaJabatan", "Gaji"};
             tblkaryawan.setModel(tbl);
             datakaryawan = km.tampil();
         for (karyawanmodel k : datakaryawan) {
@@ -79,6 +80,7 @@ public final class karyawan extends javax.swing.JFrame {
             tbl.addRow(row);
         }
        }
+    
     
     public void combobox (){
         try {
