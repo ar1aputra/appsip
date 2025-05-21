@@ -4,12 +4,19 @@
  */
 package form;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import model.produkmodel;
+
 /**
  *
  * @author Administrator
  */
 public final class produk extends javax.swing.JFrame {
     int xx, xy;
+    produkmodel km = new produkmodel();
+    List<produkmodel> dataproduk = new ArrayList<>();
     
     /**
      * Creates new form produk
@@ -47,6 +54,10 @@ public final class produk extends javax.swing.JFrame {
         txtharga = new javax.swing.JTextField();
         txtproduk = new javax.swing.JTextField();
         txtkodeproduk = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblproduk = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        txtcari = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -64,7 +75,7 @@ public final class produk extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 153, 102));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("PRODUK");
+        jLabel1.setText("Master PRODUK");
 
         btnclose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/icons8-close-16.png"))); // NOI18N
         btnclose.addActionListener(new java.awt.event.ActionListener() {
@@ -78,9 +89,9 @@ public final class produk extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(130, 130, 130)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(61, 61, 61)
                 .addComponent(btnclose, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -105,6 +116,11 @@ public final class produk extends javax.swing.JFrame {
 
         btnsimpan.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnsimpan.setText("SIMPAN");
+        btnsimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsimpanActionPerformed(evt);
+            }
+        });
 
         btnhapus.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnhapus.setText("HAPUS");
@@ -115,36 +131,76 @@ public final class produk extends javax.swing.JFrame {
 
         txtkodeproduk.setText("jTextField3");
 
+        tblproduk.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblproduk);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setText("CARI");
+
+        txtcari.setText("jTextField1");
+        txtcari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtcariKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtharga)
+                    .addComponent(txtkodeproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(49, 49, 49))
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
                         .addComponent(btnsimpan)
                         .addGap(39, 39, 39)
                         .addComponent(btnhapus))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
+                        .addContainerGap()
+                        .addComponent(jLabel7)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtharga, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                            .addComponent(txtkodeproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtproduk))))
-                .addContainerGap(49, Short.MAX_VALUE))
+                        .addComponent(txtcari, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtkodeproduk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -156,11 +212,17 @@ public final class produk extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtharga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnsimpan)
                     .addComponent(btnhapus))
-                .addGap(36, 36, 36))
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtcari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
@@ -183,6 +245,41 @@ public final class produk extends javax.swing.JFrame {
         int y = evt.getYOnScreen();
         this.setLocation(x - xx, y - xy);
     }//GEN-LAST:event_formMouseDragged
+
+    private void btnsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimpanActionPerformed
+        // TODO add your handling code here:
+        if (txtkodeproduk.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Data belum Lengkap");
+        }else if(txtproduk.getText().isEmpty()){
+               JOptionPane.showMessageDialog(null, "Data belum Lengkap");
+        }else if(txtharga.getText().isEmpty()){
+               JOptionPane.showMessageDialog(null, "Data belum Lengkap");
+        }else{
+            km.setKodeproduk(txtkodeproduk.getText());
+            km.setNamaproduk(txtproduk.getText());
+            km.setHargaproduk(txtharga.getText());         
+         {
+            km.simpan();
+            
+        }
+         bersih();
+        }              
+    }//GEN-LAST:event_btnsimpanActionPerformed
+
+    private void txtcariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcariKeyTyped
+        // TODO add your handling code here:
+//        tbl.getDataVector().removeAllElements();
+//        tbl.fireTableDataChanged();
+//        datateknisi.clear();
+//        datateknisi = km.caridata(txtcari.getText());
+//        for (int i = 0; i < datateknisi.size(); i++) {
+//            Object[] data = new Object[3];
+//            data[0] = datateknisi.get(i).getIdkaryawan();
+//            data[1] = datateknisi.get(i).getNamakaryawan();
+//            data[2] = datateknisi.get(i).getAlamatkaryawan();
+//            tbl.addRow(data);
+//        }
+    }//GEN-LAST:event_txtcariKeyTyped
 
     /**
      * @param args the command line arguments
@@ -226,7 +323,11 @@ public final class produk extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblproduk;
+    private javax.swing.JTextField txtcari;
     private javax.swing.JTextField txtharga;
     private javax.swing.JTextField txtkodeproduk;
     private javax.swing.JTextField txtproduk;

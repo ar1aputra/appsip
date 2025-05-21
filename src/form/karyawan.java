@@ -158,7 +158,6 @@ public final class karyawan extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtidkaryawan = new javax.swing.JTextField();
         txtnamakaryawan = new javax.swing.JTextField();
-        txtalamatkaryawan = new javax.swing.JTextField();
         btntambah = new javax.swing.JButton();
         btnsimpan = new javax.swing.JButton();
         btnhapus = new javax.swing.JButton();
@@ -170,6 +169,8 @@ public final class karyawan extends javax.swing.JFrame {
         txtcari = new javax.swing.JTextField();
         btncombojabatan = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtalamatkaryawan = new javax.swing.JTextArea();
 
         jLabel1.setText("jLabel1");
 
@@ -192,7 +193,7 @@ public final class karyawan extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(204, 204, 204));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel2.setText("MASTER TEKNISI");
+        jLabel2.setText("MASTER KARYAWAN");
 
         btnkeluar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnkeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/icons8-close-24.png"))); // NOI18N
@@ -220,7 +221,7 @@ public final class karyawan extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnkeluar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -235,8 +236,6 @@ public final class karyawan extends javax.swing.JFrame {
         txtidkaryawan.setText("jTextField1");
 
         txtnamakaryawan.setText("jTextField2");
-
-        txtalamatkaryawan.setText("jTextField3");
 
         btntambah.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btntambah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/icons8-plus-16.png"))); // NOI18N
@@ -328,47 +327,53 @@ public final class karyawan extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("JABATAN");
 
+        txtalamatkaryawan.setColumns(20);
+        txtalamatkaryawan.setRows(5);
+        jScrollPane2.setViewportView(txtalamatkaryawan);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6))
+                .addGap(60, 60, 60)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtidkaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtnamakaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btncombojabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btntambah)
-                .addGap(32, 32, 32)
-                .addComponent(btnsimpan)
-                .addGap(18, 18, 18)
-                .addComponent(btnhapus)
-                .addGap(32, 32, 32)
-                .addComponent(btnedit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                .addComponent(btncetak)
-                .addGap(19, 19, 19))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel6))
-                                .addGap(103, 103, 103)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtalamatkaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtidkaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtnamakaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btncombojabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btntambah)
+                        .addGap(32, 32, 32)
+                        .addComponent(btnsimpan)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnhapus)
+                        .addGap(32, 32, 32)
+                        .addComponent(btnedit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btncetak)
+                        .addGap(29, 29, 29))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
-                        .addComponent(txtcari, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(67, 67, 67))
+                        .addComponent(txtcari, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(414, 414, 414))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -383,14 +388,14 @@ public final class karyawan extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(txtnamakaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(txtalamatkaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btncombojabatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(28, 28, 28)
+                    .addComponent(jLabel6)
+                    .addComponent(btncombojabatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btntambah)
                     .addComponent(btnsimpan)
@@ -403,7 +408,7 @@ public final class karyawan extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtcari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addGap(0, 22, Short.MAX_VALUE))
+                .addGap(35, 35, 35))
         );
 
         pack();
@@ -636,8 +641,9 @@ public final class karyawan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblkaryawan;
-    private javax.swing.JTextField txtalamatkaryawan;
+    private javax.swing.JTextArea txtalamatkaryawan;
     private javax.swing.JTextField txtcari;
     private javax.swing.JTextField txtidkaryawan;
     private javax.swing.JTextField txtnamakaryawan;

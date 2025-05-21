@@ -3,10 +3,6 @@
  * and open the template in the editor.
  */
 package model;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *

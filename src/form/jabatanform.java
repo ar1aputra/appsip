@@ -55,6 +55,10 @@ public class jabatanform extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         btnclose = new javax.swing.JToggleButton();
         btnbatal = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbljabatan = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        txtcari = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -95,7 +99,7 @@ public class jabatanform extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 153, 102));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel4.setText("JABATAN");
+        jLabel4.setText("Master JABATAN");
 
         btnclose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/icons8-close-16.png"))); // NOI18N
         btnclose.addActionListener(new java.awt.event.ActionListener() {
@@ -109,9 +113,9 @@ public class jabatanform extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(62, 62, 62)
                 .addComponent(jLabel4)
-                .addGap(104, 104, 104)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnclose, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -133,26 +137,76 @@ public class jabatanform extends javax.swing.JFrame {
             }
         });
 
+        tbljabatan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbljabatan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbljabatanMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbljabatan);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setText("CARI");
+
+        txtcari.setText("jTextField1");
+        txtcari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtcariKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnsimpan)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel3)))
-                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtnamajabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtgajijabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtkodejabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnbatal))
-                .addContainerGap(40, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtnamajabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtgajijabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtkodejabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(btnsimpan)
+                        .addGap(25, 25, 25)
+                        .addComponent(btnbatal))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtcari, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(81, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,11 +224,20 @@ public class jabatanform extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtgajijabatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnsimpan)
                     .addComponent(btnbatal))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addGap(156, 156, 156)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtcari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addContainerGap(29, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(251, 251, 251)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(65, Short.MAX_VALUE)))
         );
 
         pack();
@@ -223,6 +286,29 @@ public class jabatanform extends javax.swing.JFrame {
         xy = evt.getY();
     }//GEN-LAST:event_formMousePressed
 
+    private void tbljabatanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbljabatanMouseClicked
+        // TODO add your handling code here:
+//        click();
+//        btnsimpan.setEnabled(false);
+//        btnhapus.setEnabled(true);
+//        btnedit.setEnabled(true);
+    }//GEN-LAST:event_tbljabatanMouseClicked
+
+    private void txtcariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcariKeyTyped
+        // TODO add your handling code here:
+//        tbl.getDataVector().removeAllElements();
+//        tbl.fireTableDataChanged();
+//        datateknisi.clear();
+//        datateknisi = km.caridata(txtcari.getText());
+//        for (int i = 0; i < datateknisi.size(); i++) {
+//            Object[] data = new Object[3];
+//            data[0] = datateknisi.get(i).getIdkaryawan();
+//            data[1] = datateknisi.get(i).getNamakaryawan();
+//            data[2] = datateknisi.get(i).getAlamatkaryawan();
+//            tbl.addRow(data);
+//        }
+    }//GEN-LAST:event_txtcariKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -265,7 +351,11 @@ public class jabatanform extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tbljabatan;
+    private javax.swing.JTextField txtcari;
     private javax.swing.JTextField txtgajijabatan;
     private javax.swing.JTextField txtkodejabatan;
     private javax.swing.JTextField txtnamajabatan;
