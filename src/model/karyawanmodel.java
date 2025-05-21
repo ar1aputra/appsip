@@ -13,8 +13,10 @@ import javax.swing.JOptionPane;
  *
  * @author Aria
  */
+
+
 public class karyawanmodel {
-    String idkaryawan, namakaryawan, alamatkaryawan, namajabatan; 
+    String idkaryawan, namakaryawan, alamatkaryawan, namajabatan, kodejabatan, gajijabatan; 
 
     public String getIdkaryawan() {
         return idkaryawan;
@@ -40,7 +42,29 @@ public class karyawanmodel {
         this.alamatkaryawan = alamatkaryawan;
     }
     
+    public String getKodejabatan() {
+        return kodejabatan;
+    }
+
+    public void setKodejabatan(String kodejabatan) {
+        this.kodejabatan = kodejabatan;
+    }
     
+    public String getNamajabatan() {
+        return namajabatan;
+    }
+
+    public void setNamajabatan(String namajabatan) {
+        this.namajabatan = namajabatan;
+    }
+    
+    public String getGajijabatan() {
+        return gajijabatan;
+    }
+
+    public void setGajijabatan(String gajijabatan) {
+        this.gajijabatan = gajijabatan;
+    }
     
     
     koneksi db = null;
@@ -57,17 +81,24 @@ public class karyawanmodel {
     }
     
    public List tampil() {
-       List<karyawanmodel> data = new ArrayList<>();
-       ResultSet hasil = null;
-       try {
-            String sql = "select * from karyawan";
+        List<karyawanmodel> data = new ArrayList<>();
+    ResultSet hasil = null;
+    try {
+        String sql = "SELECT k.idkaryawan, k.namakaryawan, k.alamatkaryawan, " +
+                     "j.kodejabatan, j.namajabatan, j.gajijabatan " +
+                     "FROM karyawan k " +
+                     "JOIN jabatan j ON k.kodejabatan = j.kodejabatan";
+
+        hasil = db.ambilData(sql);
             hasil = db.ambilData(sql);
             while(hasil.next() ) {
                 karyawanmodel km = new karyawanmodel();
                 km.setIdkaryawan(hasil.getString("idkaryawan"));
-                km.setNamakaryawan(hasil.getString("namakaryawan"));
-                km.setAlamatkaryawan(hasil.getString("alamatkaryawan"));
-                data.add(km);
+            km.setNamakaryawan(hasil.getString("namakaryawan"));
+            km.setAlamatkaryawan(hasil.getString("alamatkaryawan"));
+            km.setNamajabatan(hasil.getString("namajabatan"));
+            km.setGajijabatan(hasil.getString("gajijabatan")); // bisa diformat ke Rupiah seperti sebelumnya
+            data.add(km);
             }
             db.tutupKoneksi (hasil);
         }catch (Exception e) {

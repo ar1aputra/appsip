@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 
 /**
  *
@@ -78,9 +80,5 @@ public void tutupKoneksi (ResultSet rs) {
    } catch (Exception e) {
         System.out.println("Salah tutup koneksi : " +e);
         }
-    }
-
-    public Connection getKoneksi() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    } 
 }

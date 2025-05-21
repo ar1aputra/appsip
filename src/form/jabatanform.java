@@ -6,9 +6,8 @@ package form;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import model.jabatanmodel;
 import javax.swing.table.DefaultTableModel;
-import model.produkmodel;
+import model.jabatanmodel;
 
 /**
  *
@@ -19,10 +18,10 @@ public class jabatanform extends javax.swing.JFrame {
     List<jabatanmodel> datajabatan = new ArrayList<>();
     int xx, xy;
     DefaultTableModel tbl;
-
+    
     /**
      * Creates new form jabatan
-     */    
+     */
     
     public jabatanform() {
         initComponents();
@@ -30,7 +29,7 @@ public class jabatanform extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         buatkolom();
         tampiljabatan();        
-    }
+    }    
     
     public void bersih() {
        txtkodejabatan.setText(null);
@@ -43,14 +42,14 @@ public class jabatanform extends javax.swing.JFrame {
     tbl = new DefaultTableModel ();
     tbl.addColumn ("KODE");
     tbl.addColumn ("JABATAN");
-    tbl.addColumn ("SLARY");
+    tbl.addColumn ("SALARY");
    
     tbljabatan.setModel (tbl);
    
     tbljabatan.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_OFF);
     tbljabatan.getColumnModel().getColumn(0).setPreferredWidth(62);
-    tbljabatan.getColumnModel().getColumn(1).setPreferredWidth(150);
-    tbljabatan.getColumnModel().getColumn(2).setPreferredWidth(105);
+    tbljabatan.getColumnModel().getColumn(1).setPreferredWidth(200);
+    tbljabatan.getColumnModel().getColumn(2).setPreferredWidth(128);
     }  
      
      public void tampiljabatan (){
@@ -62,7 +61,7 @@ public class jabatanform extends javax.swing.JFrame {
             Object[] data = new Object[3];
             data[0] = datajabatan.get(i).getKodejabatan();
             data[1] = datajabatan.get(i).getNamajabatan();
-            data[2] = datajabatan.get(i).getGajijabatan();            
+            data[2] = datajabatan.get(i).getGajijabatan();           
             tbl.addRow(data);
          }
     }
@@ -77,6 +76,10 @@ public class jabatanform extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -88,10 +91,36 @@ public class jabatanform extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         btnclose = new javax.swing.JToggleButton();
         btnbatal = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbljabatan = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         txtcari = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tbljabatan = new javax.swing.JTable();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -175,32 +204,6 @@ public class jabatanform extends javax.swing.JFrame {
             }
         });
 
-        tbljabatan.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tbljabatan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbljabatanMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tbljabatan);
-
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("CARI");
 
@@ -211,6 +214,19 @@ public class jabatanform extends javax.swing.JFrame {
             }
         });
 
+        tbljabatan.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane4.setViewportView(tbljabatan);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -219,32 +235,33 @@ public class jabatanform extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(25, 25, 25)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(34, 34, 34)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addGap(25, 25, 25)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtnamajabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtgajijabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtkodejabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(47, 47, 47)
+                                .addComponent(btnsimpan)
+                                .addGap(25, 25, 25)
+                                .addComponent(btnbatal)))
+                        .addGap(0, 96, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtnamajabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtgajijabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtkodejabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(btnsimpan)
-                        .addGap(25, 25, 25)
-                        .addComponent(btnbatal))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtcari, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(81, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtcari, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,16 +283,13 @@ public class jabatanform extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnsimpan)
                     .addComponent(btnbatal))
-                .addGap(156, 156, 156)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtcari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addContainerGap(29, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(251, 251, 251)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(65, Short.MAX_VALUE)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -298,6 +312,7 @@ public class jabatanform extends javax.swing.JFrame {
             
         }
          bersih();
+         tampiljabatan();
         }                    
     }//GEN-LAST:event_btnsimpanActionPerformed
 
@@ -323,14 +338,6 @@ public class jabatanform extends javax.swing.JFrame {
          xx = evt.getX();
         xy = evt.getY();
     }//GEN-LAST:event_formMousePressed
-
-    private void tbljabatanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbljabatanMouseClicked
-        // TODO add your handling code here:
-//        click();
-//        btnsimpan.setEnabled(false);
-//        btnhapus.setEnabled(true);
-//        btnedit.setEnabled(true);
-    }//GEN-LAST:event_tbljabatanMouseClicked
 
     private void txtcariKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcariKeyTyped
         // TODO add your handling code here:
@@ -396,11 +403,17 @@ public class jabatanform extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTable tbljabatan;
     private javax.swing.JTextField txtcari;
     private javax.swing.JTextField txtgajijabatan;
     private javax.swing.JTextField txtkodejabatan;
     private javax.swing.JTextField txtnamajabatan;
     // End of variables declaration//GEN-END:variables
+
+    
 }

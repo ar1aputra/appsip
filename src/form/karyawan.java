@@ -7,6 +7,8 @@ import aplikasi.isp.Jabatan;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -26,7 +28,8 @@ public final class karyawan extends javax.swing.JFrame {
     int xx, xy;
     karyawanmodel km = new karyawanmodel();
     DefaultTableModel tbl;
-    List<karyawanmodel> datateknisi = new ArrayList<>();
+    List<karyawanmodel> datakaryawan = new ArrayList<>();
+    //karyawancontroller km = new karyawancontroller();
     public karyawan() {
     //super((java.awt.Frame)null, true);
     initComponents();
@@ -56,11 +59,33 @@ public final class karyawan extends javax.swing.JFrame {
         txtidkaryawan.setEnabled(false); 
     }
     
-    private void click(){
-    txtidkaryawan.setText(tblkaryawan.getValueAt(tblkaryawan.getSelectedRow(), 0).toString());
-    txtnamakaryawan.setText(tblkaryawan.getValueAt(tblkaryawan.getSelectedRow(),1).toString());
-    txtalamatkaryawan.setText(tblkaryawan.getValueAt(tblkaryawan.getSelectedRow(),2).toString());
-    }
+//    private void click(){
+//    txtidkaryawan.setText(tblkaryawan.getValueAt(tblkaryawan.getSelectedRow(), 0).toString());
+//    txtnamakaryawan.setText(tblkaryawan.getValueAt(tblkaryawan.getSelectedRow(),1).toString());
+//    txtalamatkaryawan.setText(tblkaryawan.getValueAt(tblkaryawan.getSelectedRow(),2).toString());
+//    }
+    
+    public void tampilkaryawan() {
+    // Buat header kolom tabel
+    String[] kolom = {"ID Karyawan", "Nama", "Alamat", "Nama Jabatan", "Gaji"};
+        tblkaryawan.setModel(tbl); // Hubungkan dengan JTable
+    
+    // Ambil data dari database via model
+    datakaryawan = km.tampil(); // km = objek dari class controller
+    
+    // Tambahkan baris ke dalam tabel
+    for (karyawanmodel k : datakaryawan) {
+        Object[] row = new Object[6];
+        row[0] = k.getIdkaryawan();
+        row[1] = k.getNamakaryawan();
+        row[2] = k.getAlamatkaryawan();
+        row[3] = k.getKodejabatan();
+        row[4] = k.getNamajabatan();
+        row[5] = k.getGajijabatan();
+                //FormatRupiah(k.getGajijabatan()); // Format ke rupiah
+        tbl.addRow(row);
+        }
+       }
     
     public void combobox (){
         try {
@@ -84,21 +109,21 @@ public final class karyawan extends javax.swing.JFrame {
      }
    }
     
-    public void tampilkaryawan (){
-        tbl.getDataVector().removeAllElements();
-        tbl.fireTableDataChanged();
-        datateknisi.clear();
-        datateknisi = km.tampil();
-        for(int i= 0; i < datateknisi.size(); i++){
-            Object[] data = new Object[3];
-            data[0] = datateknisi.get(i).getIdkaryawan();
-            data[1] = datateknisi.get(i).getNamakaryawan();
-            data[2] = datateknisi.get(i).getAlamatkaryawan();
-            //data[2] = datateknisi.get(i).getJabata();
-            
-            tbl.addRow(data);
-         }
-    }
+//    public void tampilkaryawan (){
+//        tbl.getDataVector().removeAllElements();
+//        tbl.fireTableDataChanged();
+//        datakaryawan.clear();
+//        datakaryawan = km.tampil();    
+//       for (int i = 0; i < datakaryawan.size(); i++) {
+//        Object[] data = new Object[5];
+//        data[0] = datakaryawan.get(i).getIdkaryawan();
+//        data[1] = datakaryawan.get(i).getNamakaryawan();
+//        data[2] = datakaryawan.get(i).getAlamatkaryawan();
+//        data[3] = datakaryawan.get(i).getNamajabatan();
+//        data[4] = datakaryawan.get(i).getGajijabatan(); // Bisa diformat ke Rupiah
+//        tbl.addRow(data);
+//     }
+//    }
     
             
      public void bersih() {
@@ -106,7 +131,7 @@ public final class karyawan extends javax.swing.JFrame {
        txtnamakaryawan.setText(null);
        txtalamatkaryawan.setText (null);
        txtcari.setText(null);
-   }
+   }     
      
    public void aturtombol () {
         btntambah.setEnabled(true);
@@ -509,7 +534,7 @@ public final class karyawan extends javax.swing.JFrame {
 
     private void tblkaryawanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblkaryawanMouseClicked
         // TODO add your handling code here:
-        click();
+        //click();
         btnsimpan.setEnabled(false);
         btnhapus.setEnabled(true);
         btnedit.setEnabled(true);
@@ -544,13 +569,13 @@ public final class karyawan extends javax.swing.JFrame {
         // TODO add your handling code here:
         tbl.getDataVector().removeAllElements();
         tbl.fireTableDataChanged();
-        datateknisi.clear();
-        datateknisi = km.caridata(txtcari.getText());
-        for (int i = 0; i < datateknisi.size(); i++) {
+        datakaryawan.clear();
+        datakaryawan = km.caridata(txtcari.getText());
+        for (int i = 0; i < datakaryawan.size(); i++) {
             Object[] data = new Object[3];
-            data[0] = datateknisi.get(i).getIdkaryawan();
-            data[1] = datateknisi.get(i).getNamakaryawan();
-            data[2] = datateknisi.get(i).getAlamatkaryawan();
+            data[0] = datakaryawan.get(i).getIdkaryawan();
+            data[1] = datakaryawan.get(i).getNamakaryawan();
+            data[2] = datakaryawan.get(i).getAlamatkaryawan();
             tbl.addRow(data);
         }
     }//GEN-LAST:event_txtcariKeyTyped
