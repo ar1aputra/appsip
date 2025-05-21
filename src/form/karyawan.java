@@ -13,18 +13,22 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.koneksi2;
 import model.karyawanmodel;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
  * @author Aria
  */
-public class karyawan extends javax.swing.JDialog {
+//public class karyawan extends javax.swing.JDialog {
+public final class karyawan extends javax.swing.JFrame {
     int xx, xy;
     karyawanmodel km = new karyawanmodel();
     DefaultTableModel tbl;
     List<karyawanmodel> datateknisi = new ArrayList<>();
     public karyawan() {
-    super((java.awt.Frame)null, true);
+    //super((java.awt.Frame)null, true);
     initComponents();
     combobox();
     buatkolom();
@@ -40,7 +44,7 @@ public class karyawan extends javax.swing.JDialog {
      * Creates new form teknisi
      */
     public karyawan(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+        //super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
         combobox();
@@ -561,6 +565,16 @@ public class karyawan extends javax.swing.JDialog {
 
     private void btncetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncetakActionPerformed
         // TODO add your handling code here:
+        try {
+            JasperPrint jp = JasperFillManager.fillReport(
+                    getClass().getResourceAsStream("/report/reportkaryawan.jasper"),null, koneksi2.getConnection());
+            JasperViewer.viewReport(jp, false);            
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Gagal mencetak laporan: " + e.getMessage());
+        e.printStackTrace();
+        System.out.println("Path: " + getClass().getResource("/report/reportkaryawan.jasper"));
+        }
+        //this.setVisible(true);    
     }//GEN-LAST:event_btncetakActionPerformed
 
     /**

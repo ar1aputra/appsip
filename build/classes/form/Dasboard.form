@@ -70,7 +70,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menupelangganbaru">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Pelanggan"/>
+                <Property name="text" type="java.lang.String" value="Pelanggan Baru"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menupelangganbaruActionPerformed"/>
@@ -88,21 +88,24 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuteknisibaru">
           <Properties>
-            <Property name="text" type="java.lang.String" value="TEKNISI"/>
+            <Property name="text" type="java.lang.String" value="KARYAWAN"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Teknisi"/>
+                <Property name="text" type="java.lang.String" value="Karyawan Baru"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem4ActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menucetakteknisi">
+            <MenuItem class="javax.swing.JMenuItem" name="menucetakkaryawan">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cetak"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menucetakkaryawanActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

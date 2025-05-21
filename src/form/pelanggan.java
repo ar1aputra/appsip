@@ -7,19 +7,24 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.koneksi2;
 import model.pelangganmodel;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
  * @author Aria
  */
-public final class pelanggan extends javax.swing.JDialog {
+//public final class pelanggan extends javax.swing.JDialog {
+public final class pelanggan extends javax.swing.JFrame {
     int xx, xy;
     pelangganmodel km = new pelangganmodel();
     DefaultTableModel tbl;
     List<pelangganmodel> datapelanggan = new ArrayList<>();
     public pelanggan() {
-    super((java.awt.Frame)null, true);
+    //super((java.awt.Frame)null, true);
     initComponents();
     buatkolom();
     tampilpelanggan();
@@ -34,7 +39,7 @@ public final class pelanggan extends javax.swing.JDialog {
      * Creates new form pelanggan
      */
     public pelanggan(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+        //super(parent, modal);
         initComponents();
         buatkolom();
         tampilpelanggan();
@@ -255,6 +260,11 @@ public final class pelanggan extends javax.swing.JDialog {
 
         btncetak.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btncetak.setText("Cetak");
+        btncetak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncetakActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -486,6 +496,20 @@ public final class pelanggan extends javax.swing.JDialog {
         int y = evt.getYOnScreen();
         this.setLocation(x - xx, y - xy);
     }//GEN-LAST:event_formMouseDragged
+
+    private void btncetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncetakActionPerformed
+        // TODO add your handling code here:
+        try {
+            JasperPrint jp = JasperFillManager.fillReport(
+                    getClass().getResourceAsStream("/report/reportpelanggan.jasper"),null, koneksi2.getConnection());
+            JasperViewer.viewReport(jp, false);            
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Gagal mencetak laporan: " + e.getMessage());
+        e.printStackTrace();
+        System.out.println("Path: " + getClass().getResource("/report/reportPelanggan.jasper"));
+        }
+        //this.setVisible(true);
+    }//GEN-LAST:event_btncetakActionPerformed
 
     /**
      * @param args the command line arguments

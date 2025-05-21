@@ -60,7 +60,7 @@ public class Dasboard extends javax.swing.JFrame {
         menucetakpelanggan = new javax.swing.JMenuItem();
         menuteknisibaru = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
-        menucetakteknisi = new javax.swing.JMenuItem();
+        menucetakkaryawan = new javax.swing.JMenuItem();
         menuharga = new javax.swing.JMenu();
 
         jMenu1.setText("File");
@@ -108,7 +108,7 @@ public class Dasboard extends javax.swing.JFrame {
             }
         });
 
-        menupelangganbaru.setText("Pelanggan");
+        menupelangganbaru.setText("Pelanggan Baru");
         menupelangganbaru.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menupelangganbaruActionPerformed(evt);
@@ -126,9 +126,9 @@ public class Dasboard extends javax.swing.JFrame {
 
         jMenuBar2.add(menupelanggan);
 
-        menuteknisibaru.setText("TEKNISI");
+        menuteknisibaru.setText("KARYAWAN");
 
-        jMenuItem4.setText("Teknisi");
+        jMenuItem4.setText("Karyawan Baru");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -136,8 +136,13 @@ public class Dasboard extends javax.swing.JFrame {
         });
         menuteknisibaru.add(jMenuItem4);
 
-        menucetakteknisi.setText("Cetak");
-        menuteknisibaru.add(menucetakteknisi);
+        menucetakkaryawan.setText("Cetak");
+        menucetakkaryawan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menucetakkaryawanActionPerformed(evt);
+            }
+        });
+        menuteknisibaru.add(menucetakkaryawan);
 
         jMenuBar2.add(menuteknisibaru);
 
@@ -204,13 +209,27 @@ public class Dasboard extends javax.swing.JFrame {
         e.printStackTrace();
         System.out.println("Path: " + getClass().getResource("/report/reportPelanggan.jasper"));
         }
-        this.setVisible(true);
+        //this.setVisible(true);
     }//GEN-LAST:event_menucetakpelangganActionPerformed
 
     private void menupelangganbaruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menupelangganbaruActionPerformed
         // TODO add your handling code here:
         new pelanggan().setVisible(true);
     }//GEN-LAST:event_menupelangganbaruActionPerformed
+
+    private void menucetakkaryawanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menucetakkaryawanActionPerformed
+        // TODO add your handling code here:
+        try {
+            JasperPrint jp = JasperFillManager.fillReport(
+                    getClass().getResourceAsStream("/report/reportkaryawan.jasper"),null, koneksi2.getConnection());
+            JasperViewer.viewReport(jp, false);            
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Gagal mencetak laporan: " + e.getMessage());
+        e.printStackTrace();
+        System.out.println("Path: " + getClass().getResource("/report/reportkaryawan.jasper"));
+        }
+        //this.setVisible(true);
+    }//GEN-LAST:event_menucetakkaryawanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -259,8 +278,8 @@ public class Dasboard extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem menucetakkaryawan;
     private javax.swing.JMenuItem menucetakpelanggan;
-    private javax.swing.JMenuItem menucetakteknisi;
     private javax.swing.JMenu menuharga;
     private javax.swing.JMenu menupelanggan;
     private javax.swing.JMenuItem menupelangganbaru;
