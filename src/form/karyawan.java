@@ -7,8 +7,6 @@ import aplikasi.isp.Jabatan;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -59,31 +57,26 @@ public final class karyawan extends javax.swing.JFrame {
         txtidkaryawan.setEnabled(false); 
     }
     
-//    private void click(){
-//    txtidkaryawan.setText(tblkaryawan.getValueAt(tblkaryawan.getSelectedRow(), 0).toString());
-//    txtnamakaryawan.setText(tblkaryawan.getValueAt(tblkaryawan.getSelectedRow(),1).toString());
-//    txtalamatkaryawan.setText(tblkaryawan.getValueAt(tblkaryawan.getSelectedRow(),2).toString());
-//    }
+    private void click(){
+    txtidkaryawan.setText(tblkaryawan.getValueAt(tblkaryawan.getSelectedRow(), 0).toString());
+    txtnamakaryawan.setText(tblkaryawan.getValueAt(tblkaryawan.getSelectedRow(),1).toString());
+    txtalamatkaryawan.setText(tblkaryawan.getValueAt(tblkaryawan.getSelectedRow(),2).toString());
+    }
     
     public void tampilkaryawan() {
     // Buat header kolom tabel
-    String[] kolom = {"ID Karyawan", "Nama", "Alamat", "Nama Jabatan", "Gaji"};
-        tblkaryawan.setModel(tbl); // Hubungkan dengan JTable
-    
-    // Ambil data dari database via model
-    datakaryawan = km.tampil(); // km = objek dari class controller
-    
-    // Tambahkan baris ke dalam tabel
-    for (karyawanmodel k : datakaryawan) {
-        Object[] row = new Object[6];
-        row[0] = k.getIdkaryawan();
-        row[1] = k.getNamakaryawan();
-        row[2] = k.getAlamatkaryawan();
-        row[3] = k.getKodejabatan();
-        row[4] = k.getNamajabatan();
-        row[5] = k.getGajijabatan();
-                //FormatRupiah(k.getGajijabatan()); // Format ke rupiah
-        tbl.addRow(row);
+    String[] kolom = {"ID Karyawan", "Nama", "Alamat", "NamaJabatan", "Gaji"};
+            tblkaryawan.setModel(tbl);
+            datakaryawan = km.tampil();
+        for (karyawanmodel k : datakaryawan) {
+            Object[] row = new Object[6];
+            row[0] = k.getIdkaryawan();
+            row[1] = k.getNamakaryawan();
+            row[2] = k.getAlamatkaryawan();
+            //row[3] = k.getKodejabatan();
+            row[3] = k.getNamajabatan();
+            row[4] = k.getGajijabatan();
+            tbl.addRow(row);
         }
        }
     
@@ -107,24 +100,7 @@ public final class karyawan extends javax.swing.JFrame {
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Gagal load jabatan: " + e.getMessage());
      }
-   }
-    
-//    public void tampilkaryawan (){
-//        tbl.getDataVector().removeAllElements();
-//        tbl.fireTableDataChanged();
-//        datakaryawan.clear();
-//        datakaryawan = km.tampil();    
-//       for (int i = 0; i < datakaryawan.size(); i++) {
-//        Object[] data = new Object[5];
-//        data[0] = datakaryawan.get(i).getIdkaryawan();
-//        data[1] = datakaryawan.get(i).getNamakaryawan();
-//        data[2] = datakaryawan.get(i).getAlamatkaryawan();
-//        data[3] = datakaryawan.get(i).getNamajabatan();
-//        data[4] = datakaryawan.get(i).getGajijabatan(); // Bisa diformat ke Rupiah
-//        tbl.addRow(data);
-//     }
-//    }
-    
+   }    
             
      public void bersih() {
        txtidkaryawan.setText(null);
@@ -153,13 +129,12 @@ public final class karyawan extends javax.swing.JFrame {
     tbl.addColumn("Jabatan");
     tbl.addColumn("Gaji");
    
-    tblkaryawan.setModel (tbl);
-   
+    tblkaryawan.setModel (tbl);   
     tblkaryawan.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_OFF);
     tblkaryawan.getColumnModel().getColumn(0).setPreferredWidth(40);
     tblkaryawan.getColumnModel().getColumn(1).setPreferredWidth(150);
     tblkaryawan.getColumnModel().getColumn(2).setPreferredWidth(215);
-    tblkaryawan.getColumnModel().getColumn(3).setPreferredWidth(100);
+    tblkaryawan.getColumnModel().getColumn(3).setPreferredWidth(150);
     tblkaryawan.getColumnModel().getColumn(4).setPreferredWidth(100);
     }  
 
@@ -471,21 +446,21 @@ public final class karyawan extends javax.swing.JFrame {
                JOptionPane.showMessageDialog(null, "Data belum Lengkap");
         }
        try {          
-    String nama = txtnamakaryawan.getText();
-    String alamat = txtalamatkaryawan.getText();
-    Jabatan jab = (Jabatan) btncombojabatan.getSelectedItem();
-    int kodejabatan = jab.getKode();
-    String sql = "INSERT INTO karyawan (idkaryawan, namakaryawan, alamatkaryawan, kodejabatan) VALUES (null, ?, ?, ?)";
-    Connection conn = koneksi2.getConnection();
-    PreparedStatement pstm = conn.prepareStatement(sql);
-    pstm.setString(1, nama);
-    pstm.setString(2, alamat);
-    pstm.setInt(3, kodejabatan);
-    pstm.executeUpdate();
+            String nama = txtnamakaryawan.getText();
+            String alamat = txtalamatkaryawan.getText();
+            Jabatan jab = (Jabatan) btncombojabatan.getSelectedItem();
+            int kodejabatan = jab.getKode();
+            String sql = "INSERT INTO karyawan (idkaryawan, namakaryawan, alamatkaryawan, kodejabatan) VALUES (null, ?, ?, ?)";
+            Connection conn = koneksi2.getConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setString(1, nama);
+            pstm.setString(2, alamat);
+            pstm.setInt(3, kodejabatan);
+            pstm.executeUpdate();
 
-    JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
-    tampilkaryawan();
-    bersih();
+            JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
+            tampilkaryawan();
+            bersih();
 
     } catch (Exception e) {
     JOptionPane.showMessageDialog(null, "Salah Simpan data: " + e.getMessage());
@@ -523,18 +498,16 @@ public final class karyawan extends javax.swing.JFrame {
         km.setIdkaryawan(txtidkaryawan.getText());
         km.hapus();
         JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
-
-        // Refresh tampilan
-        bersih();
-        tampilkaryawan();
-        kondisi(false);
-        aturtombol();
+            bersih();
+            tampilkaryawan();
+            kondisi(false);
+            aturtombol();
      }
     }//GEN-LAST:event_btnhapusActionPerformed
 
     private void tblkaryawanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblkaryawanMouseClicked
         // TODO add your handling code here:
-        //click();
+        click();
         btnsimpan.setEnabled(false);
         btnhapus.setEnabled(true);
         btnedit.setEnabled(true);

@@ -62,19 +62,20 @@ public final class pelanggan extends javax.swing.JFrame {
         kondisi(false);        
     }
     
-    public void tampilpelanggan (){
-        tbl.getDataVector().removeAllElements();
-        tbl.fireTableDataChanged();
-        datapelanggan.clear();
-        datapelanggan = km.tampil();
-        for(int i= 0; i < datapelanggan.size(); i++){
-            Object[] data = new Object[3];
-            data[0] = datapelanggan.get(i).getIdpelanggan();
-            data[1] = datapelanggan.get(i).getNamapelanggan();
-            data[2] = datapelanggan.get(i).getAlamatpelanggan();
-            tbl.addRow(data);
-         }
-    }
+    public void tampilpelanggan() {
+    String[] kolom = {"IDPelanggan", "Nama", "Alamat", "NamaProduk", "Harga"};
+            tblpelanggan.setModel(tbl);
+            datapelanggan = km.tampil();
+        for (pelangganmodel k : datapelanggan) {
+            Object[] row = new Object[5];
+            row[0] = k.getIdpelanggan();
+            row[1] = k.getNamapelanggan();
+            row[2] = k.getAlamatpelanggan();
+            row[3] = k.getNamaproduk();
+            row[4] = k.getHargaroduk();
+            tbl.addRow(row);
+        }
+       }
     
     public void combobox (){
         try {
@@ -122,15 +123,20 @@ public final class pelanggan extends javax.swing.JFrame {
     tbl.addColumn ("ID");
     tbl.addColumn ("Nama Pelanggan");
     tbl.addColumn ("Alamat");
+    tbl.addColumn("Produk");
+    tbl.addColumn("Tagihan perbulan");
    
     tblpelanggan.setModel (tbl);
    
     tblpelanggan.setAutoResizeMode (javax.swing.JTable.AUTO_RESIZE_OFF);
-    tblpelanggan.getColumnModel().getColumn(0).setPreferredWidth(60);
-    tblpelanggan.getColumnModel().getColumn(1).setPreferredWidth(180);
+    tblpelanggan.getColumnModel().getColumn(0).setPreferredWidth(30);
+    tblpelanggan.getColumnModel().getColumn(1).setPreferredWidth(140);
     tblpelanggan.getColumnModel().getColumn(2).setPreferredWidth(250);
+    tblpelanggan.getColumnModel().getColumn(3).setPreferredWidth(110);
+    tblpelanggan.getColumnModel().getColumn(4).setPreferredWidth(120);
     }  
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -147,7 +153,6 @@ public final class pelanggan extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         btnkeluar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        txtalamatpelanggan = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtidpelanggan = new javax.swing.JTextField();
         btntambah = new javax.swing.JButton();
@@ -160,6 +165,8 @@ public final class pelanggan extends javax.swing.JFrame {
         btncetak = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         btncomboproduk = new javax.swing.JComboBox();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtalamatpelanggan = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -186,18 +193,18 @@ public final class pelanggan extends javax.swing.JFrame {
 
         tblpelanggan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -244,8 +251,6 @@ public final class pelanggan extends javax.swing.JFrame {
                     .addComponent(btnkeluar, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
-
-        txtalamatpelanggan.setText("jTextField1");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Alamat");
@@ -307,13 +312,17 @@ public final class pelanggan extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Produk Pelanggan");
 
+        txtalamatpelanggan.setColumns(20);
+        txtalamatpelanggan.setRows(5);
+        jScrollPane3.setViewportView(txtalamatpelanggan);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
@@ -321,32 +330,34 @@ public final class pelanggan extends javax.swing.JFrame {
                         .addComponent(txtcaridata, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btntambah, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btnsimpan)
+                            .addGap(14, 14, 14)
+                            .addComponent(btnhapus)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btnedit)
+                            .addGap(18, 18, 18)
+                            .addComponent(btncetak)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6)
+                                .addGap(28, 28, 28)
+                                .addComponent(btncomboproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel6))
-                                .addGap(28, 28, 28)
+                                    .addComponent(jLabel4))
+                                .addGap(106, 106, 106)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtnamapelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtalamatpelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtidpelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btncomboproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btntambah, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnsimpan)
-                                .addGap(14, 14, 14)
-                                .addComponent(btnhapus)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnedit)
-                                .addGap(18, 18, 18)
-                                .addComponent(btncetak)))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,15 +371,20 @@ public final class pelanggan extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtnamapelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtalamatpelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btncomboproduk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGap(41, 41, 41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btntambah)
                     .addComponent(btnsimpan)
@@ -381,7 +397,7 @@ public final class pelanggan extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtcaridata, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
         );
 
         pack();
@@ -466,12 +482,11 @@ public final class pelanggan extends javax.swing.JFrame {
 
         if (confirm == JOptionPane.YES_OPTION) {
             km.setIdpelanggan(txtidpelanggan.getText());
-            km.hapusdata();// Pastikan method `hapus()` sudah ada di class katAnggota
+            km.hapusdata();
             JOptionPane.showMessageDialog(null, "Data berhasil dihapus");
-
-            // Refresh tampilan
-            bersih();
+            
             tampilpelanggan();
+            bersih();            
             kondisi(false);
             aturtombol();
         }
@@ -485,21 +500,21 @@ public final class pelanggan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Data belum Lengkap");
         }
         try {          
-    String nama = txtnamapelanggan.getText();
-    String alamat = txtalamatpelanggan.getText();
-    Jabatan jab = (Jabatan) btncomboproduk.getSelectedItem();
-    int kodejabatan = jab.getKode();
-    String sql = "INSERT INTO pelanggan (idpelanggan, namapelanggan, alamatpelanggan, kodeproduk) VALUES (null, ?, ?, ?)";
-    Connection conn = koneksi2.getConnection();
-    PreparedStatement pstm = conn.prepareStatement(sql);
-    pstm.setString(1, nama);
-    pstm.setString(2, alamat);
-    pstm.setInt(3, kodejabatan);
-    pstm.executeUpdate();
-
-    JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
-    tampilpelanggan();
-    bersih();
+            String nama = txtnamapelanggan.getText();
+            String alamat = txtalamatpelanggan.getText();
+            Jabatan jab = (Jabatan) btncomboproduk.getSelectedItem();
+            int kodejabatan = jab.getKode();
+            String sql = "INSERT INTO pelanggan (idpelanggan, namapelanggan, alamatpelanggan, kodeproduk) VALUES (null, ?, ?, ?)";
+            Connection conn = koneksi2.getConnection();
+            PreparedStatement pstm = conn.prepareStatement(sql);
+            pstm.setString(1, nama);
+            pstm.setString(2, alamat);
+            pstm.setInt(3, kodejabatan);
+            pstm.executeUpdate();
+        JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
+        
+        tampilpelanggan();
+        bersih();
 
     } catch (Exception e) {
     JOptionPane.showMessageDialog(null, "Salah Simpan data: " + e.getMessage());
@@ -512,28 +527,10 @@ public final class pelanggan extends javax.swing.JFrame {
         }
             bersih();
             kondisi(false);
-            tampilpelanggan();
             aturtombol();
             btntambah.setText("Tambah");
             btnedit.setText("edit");
-      }
-                              
-//            km.setIdpelanggan(txtidpelanggan.getText());
-//            km.setNamapelanggan(txtnamapelanggan.getText());
-//            km.setAlamatpelanggan(txtalamatpelanggan.getText());
-//
-//            if(btntambah.getText().equalsIgnoreCase("batal")) {
-//                km.tambah();
-//            }else if(btnedit.getText().equalsIgnoreCase("batal")){
-//                km.edit();
-//            }
-//            bersih();
-//            kondisi(false);
-//            tampilpelanggan();
-//            aturtombol();
-//            btntambah.setText("tambah");
-//            btnedit.setText("edit");
-//        }
+     }
     }//GEN-LAST:event_btnsimpanActionPerformed
 
     private void btntambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntambahActionPerformed
@@ -623,8 +620,9 @@ public final class pelanggan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable tblpelanggan;
-    private javax.swing.JTextField txtalamatpelanggan;
+    private javax.swing.JTextArea txtalamatpelanggan;
     private javax.swing.JTextField txtcaridata;
     private javax.swing.JTextField txtidpelanggan;
     private javax.swing.JTextField txtnamapelanggan;

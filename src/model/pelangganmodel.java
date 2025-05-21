@@ -5,8 +5,10 @@
 package model;
 
 import java.sql.ResultSet;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author Aria
  */
 public class pelangganmodel {
-    String idpelanggan, namapelanggan, alamatpelanggan;
+    String idpelanggan, namapelanggan, alamatpelanggan, kodeproduk, namaproduk, hargaproduk;
 
     public String getIdpelanggan() {
         return idpelanggan;
@@ -38,7 +40,31 @@ public class pelangganmodel {
     
     public void setAlamatpelanggan(String alamatpelanggan) {
         this.alamatpelanggan = alamatpelanggan;
-    }       
+    }
+    
+    public String getKodeproduk() {
+        return kodeproduk;
+    }
+
+    public void setKodeproduk(String kodeproduk) {
+        this.kodeproduk = kodeproduk;
+    }
+    
+    public String getNamaproduk() {
+        return namaproduk;
+    }    
+    
+    public void setNamaproduk(String namaproduk) {
+        this.namaproduk = namaproduk;
+    }
+    
+    public String getHargaroduk() {
+        return hargaproduk;
+    }    
+    
+    public void setHargaproduk(String hargaproduk) {
+        this.hargaproduk = hargaproduk;
+    }   
     
     koneksi db = null;
     public pelangganmodel() {
@@ -54,17 +80,28 @@ public class pelangganmodel {
     }
     
    public List tampil() {
-       List<pelangganmodel> data = new ArrayList<>();
-       ResultSet hasil = null;
-       try {
-            String sql = "select * from pelanggan";
+    List<pelangganmodel> data = new ArrayList<>();
+    ResultSet hasil = null;
+    NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
+    try {
+        String sql = "SELECT k.idpelanggan, k.namapelanggan, k.alamatpelanggan, " +
+                     "j.kodeproduk, j.namaproduk, j.hargaproduk " +
+                     "FROM pelanggan k " +
+                     "JOIN produk j ON k.kodeproduk = j.kodeproduk";
+
+        hasil = db.ambilData(sql);
             hasil = db.ambilData(sql);
             while(hasil.next() ) {
-                pelangganmodel km = new pelangganmodel();
+               pelangganmodel km = new pelangganmodel();
                 km.setIdpelanggan(hasil.getString("idpelanggan"));
                 km.setNamapelanggan(hasil.getString("namapelanggan"));
                 km.setAlamatpelanggan(hasil.getString("alamatpelanggan"));
-                data.add(km);
+                km.setNamaproduk(hasil.getString("namaproduk"));
+                double harga = hasil.getDouble("hargaproduk");
+                String gajiFormatted = formatter.format(harga);
+                km.setHargaproduk(gajiFormatted);
+                
+                data.add(km);                
             }
             db.tutupKoneksi (hasil);
         }catch (Exception e) {

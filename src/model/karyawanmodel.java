@@ -5,8 +5,10 @@
 package model;
 
 import java.sql.ResultSet;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 
 /**
@@ -81,8 +83,9 @@ public class karyawanmodel {
     }
     
    public List tampil() {
-        List<karyawanmodel> data = new ArrayList<>();
+    List<karyawanmodel> data = new ArrayList<>();
     ResultSet hasil = null;
+    NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
     try {
         String sql = "SELECT k.idkaryawan, k.namakaryawan, k.alamatkaryawan, " +
                      "j.kodejabatan, j.namajabatan, j.gajijabatan " +
@@ -92,13 +95,16 @@ public class karyawanmodel {
         hasil = db.ambilData(sql);
             hasil = db.ambilData(sql);
             while(hasil.next() ) {
-                karyawanmodel km = new karyawanmodel();
+               karyawanmodel km = new karyawanmodel();
                 km.setIdkaryawan(hasil.getString("idkaryawan"));
-            km.setNamakaryawan(hasil.getString("namakaryawan"));
-            km.setAlamatkaryawan(hasil.getString("alamatkaryawan"));
-            km.setNamajabatan(hasil.getString("namajabatan"));
-            km.setGajijabatan(hasil.getString("gajijabatan")); // bisa diformat ke Rupiah seperti sebelumnya
-            data.add(km);
+                km.setNamakaryawan(hasil.getString("namakaryawan"));
+                km.setAlamatkaryawan(hasil.getString("alamatkaryawan"));
+                km.setNamajabatan(hasil.getString("namajabatan"));
+                double gaji = hasil.getDouble("gajijabatan");
+                String gajiFormatted = formatter.format(gaji);
+                km.setGajijabatan(gajiFormatted);
+                
+                data.add(km);
             }
             db.tutupKoneksi (hasil);
         }catch (Exception e) {

@@ -16,6 +16,7 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author Aria
  */
 public class Dasboard extends javax.swing.JFrame {
+
     int xx, xy;
 
     /**
@@ -23,7 +24,7 @@ public class Dasboard extends javax.swing.JFrame {
      */
     public Dasboard() {
         initComponents();
-        setLocationRelativeTo(null); 
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -44,6 +45,7 @@ public class Dasboard extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jColorChooser1 = new javax.swing.JColorChooser();
         btnexit = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         menupelanggan = new javax.swing.JMenu();
@@ -74,6 +76,7 @@ public class Dasboard extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(700, 360));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 formMousePressed(evt);
@@ -147,8 +150,8 @@ public class Dasboard extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(372, Short.MAX_VALUE)
-                .addComponent(btnexit, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(671, Short.MAX_VALUE)
+                .addComponent(btnexit, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -156,7 +159,7 @@ public class Dasboard extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnexit, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(252, Short.MAX_VALUE))
+                .addContainerGap(333, Short.MAX_VALUE))
         );
 
         pack();
@@ -193,12 +196,12 @@ public class Dasboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             JasperPrint jp = JasperFillManager.fillReport(
-                    getClass().getResourceAsStream("/report/reportpelanggan.jasper"),null, koneksi2.getConnection());
-            JasperViewer.viewReport(jp, false);            
-        }catch (Exception e){
+                    getClass().getResourceAsStream("/report/reportpelanggan.jasper"), null, koneksi2.getConnection());
+            JasperViewer.viewReport(jp, false);
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Gagal mencetak laporan: " + e.getMessage());
-        e.printStackTrace();
-        System.out.println("Path: " + getClass().getResource("/report/reportPelanggan.jasper"));
+            e.printStackTrace();
+            System.out.println("Path: " + getClass().getResource("/report/reportpelanggan.jasper"));
         }
         //this.setVisible(true);
     }//GEN-LAST:event_menucetakpelangganActionPerformed
@@ -212,12 +215,12 @@ public class Dasboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             JasperPrint jp = JasperFillManager.fillReport(
-                    getClass().getResourceAsStream("/report/reportkaryawan.jasper"),null, koneksi2.getConnection());
-            JasperViewer.viewReport(jp, false);            
-        }catch (Exception e){
+                    getClass().getResourceAsStream("/report/reportkaryawan.jasper"), null, koneksi2.getConnection());
+            JasperViewer.viewReport(jp, false);
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Gagal mencetak laporan: " + e.getMessage());
-        e.printStackTrace();
-        System.out.println("Path: " + getClass().getResource("/report/reportkaryawan.jasper"));
+            e.printStackTrace();
+            System.out.println("Path: " + getClass().getResource("/report/reportkaryawan.jasper"));
         }
         //this.setVisible(true);
     }//GEN-LAST:event_menucetakkaryawanActionPerformed
@@ -258,6 +261,7 @@ public class Dasboard extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnexit;
+    private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
