@@ -4,7 +4,6 @@
  */
 package form;
 
-import form.karyawan;
 import javax.swing.JOptionPane;
 import model.koneksi2;
 import net.sf.jasperreports.engine.JasperFillManager;

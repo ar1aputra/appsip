@@ -13,7 +13,7 @@ import model.jabatanmodel;
  *
  * @author Aria
  */
-public class jabatanform extends javax.swing.JFrame {
+public final class jabatanform extends javax.swing.JFrame {
     jabatanmodel km = new jabatanmodel();
     List<jabatanmodel> datajabatan = new ArrayList<>();
     int xx, xy;

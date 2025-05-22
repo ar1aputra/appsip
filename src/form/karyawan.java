@@ -27,9 +27,7 @@ public final class karyawan extends javax.swing.JFrame {
     karyawanmodel km = new karyawanmodel();
     DefaultTableModel tbl;
     List<karyawanmodel> datakaryawan = new ArrayList<>();
-    //karyawancontroller km = new karyawancontroller();
     public karyawan() {
-    //super((java.awt.Frame)null, true);
     initComponents();
     combobox();
     buatkolom();
