@@ -139,7 +139,7 @@ public List caridata(String cari) {
     ResultSet hasil = null;
     try {
         String sql = "select * from karyawan where idkaryawan like "
-                + "'%" +cari+ "%'  or namakaryawan like '%"+cari+"%' or alamatkaryawan like '%"+cari+"%' or divisibagian like '%"+cari+"%'";
+                + "'%" +cari+ "%'  or namakaryawan like '%"+cari+"%' or alamatkaryawan like '%"+cari+"%'";
         hasil = db.ambilData(sql);
         while (hasil.next()){
         karyawanmodel km = new karyawanmodel();

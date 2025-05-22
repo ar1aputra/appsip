@@ -54,6 +54,8 @@ public class Dasboard extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         menucetakkaryawan = new javax.swing.JMenuItem();
         menuharga = new javax.swing.JMenu();
+        btnmenuproduk = new javax.swing.JMenuItem();
+        btncetakproduk = new javax.swing.JMenuItem();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -140,6 +142,23 @@ public class Dasboard extends javax.swing.JFrame {
         jMenuBar2.add(menuteknisibaru);
 
         menuharga.setText("PRODUK");
+
+        btnmenuproduk.setText("Tambah Produk");
+        btnmenuproduk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnmenuprodukActionPerformed(evt);
+            }
+        });
+        menuharga.add(btnmenuproduk);
+
+        btncetakproduk.setText("Cetak");
+        btncetakproduk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncetakprodukActionPerformed(evt);
+            }
+        });
+        menuharga.add(btncetakproduk);
+
         jMenuBar2.add(menuharga);
 
         setJMenuBar(jMenuBar2);
@@ -224,6 +243,25 @@ public class Dasboard extends javax.swing.JFrame {
         //this.setVisible(true);
     }//GEN-LAST:event_menucetakkaryawanActionPerformed
 
+    private void btnmenuprodukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmenuprodukActionPerformed
+        // TODO add your handling code here:
+        new produkform().setVisible(true);
+    }//GEN-LAST:event_btnmenuprodukActionPerformed
+
+    private void btncetakprodukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncetakprodukActionPerformed
+        // TODO add your handling code here:
+        try {
+            JasperPrint jp = JasperFillManager.fillReport(
+                    getClass().getResourceAsStream("/report/reportproduk.jasper"), null, koneksi2.getConnection());
+            JasperViewer.viewReport(jp, false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal mencetak laporan: " + e.getMessage());
+            e.printStackTrace();
+            System.out.println("Path: " + getClass().getResource("/report/reportproduk.jasper"));
+        }
+        //this.setVisible(true);
+    }//GEN-LAST:event_btncetakprodukActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -259,7 +297,9 @@ public class Dasboard extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem btncetakproduk;
     private javax.swing.JButton btnexit;
+    private javax.swing.JMenuItem btnmenuproduk;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
