@@ -57,6 +57,9 @@ public final class pelanggan extends javax.swing.JFrame {
     
     public void tampilpelanggan() {
         tbl.getDataVector().removeAllElements();
+        tbl.fireTableDataChanged();
+        datapelanggan.clear();
+        datapelanggan = km.tampil();
         String[] kolom = {"IDPelanggan", "Nama", "Alamat", "NamaProduk", "Harga"};
             tblpelanggan.setModel(tbl);
             datapelanggan = km.tampil();
@@ -496,13 +499,13 @@ public final class pelanggan extends javax.swing.JFrame {
             String nama = txtnamapelanggan.getText();
             String alamat = txtalamatpelanggan.getText();
             Jabatan jab = (Jabatan) btncomboproduk.getSelectedItem();
-            int kodejabatan = jab.getKode();
+            int kodeproduk = jab.getKode();
             String sql = "INSERT INTO pelanggan (idpelanggan, namapelanggan, alamatpelanggan, kodeproduk) VALUES (null, ?, ?, ?)";
             Connection conn = koneksi2.getConnection();
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setString(1, nama);
             pstm.setString(2, alamat);
-            pstm.setInt(3, kodejabatan);
+            pstm.setInt(3, kodeproduk);
             pstm.executeUpdate();
         JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
         

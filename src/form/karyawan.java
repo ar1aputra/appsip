@@ -64,7 +64,10 @@ public final class karyawan extends javax.swing.JFrame {
     }
     
     public void tampilkaryawan() {
-    // Buat header kolom tabel
+        tbl.getDataVector().removeAllElements();
+        tbl.fireTableDataChanged();
+        datakaryawan.clear();
+        datakaryawan = km.tampil();
         tbl.getDataVector().removeAllElements();
         String[] kolom = {"ID Karyawan", "Nama", "Alamat", "NamaJabatan", "Gaji"};
             tblkaryawan.setModel(tbl);
