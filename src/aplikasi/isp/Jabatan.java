@@ -10,11 +10,11 @@ package aplikasi.isp;
  */
 public class Jabatan {
     private int kodejabatan;
-    private String namajabtan;
+    private String namajabatan;
 
     public Jabatan(int Kodejabatan, String Namajabatan) {
         this.kodejabatan = Kodejabatan;
-        this.namajabtan = Namajabatan;
+        this.namajabatan = Namajabatan;
     }
 
     public int getKode() {
@@ -23,7 +23,7 @@ public class Jabatan {
 
     @Override
     public String toString() {
-        return namajabtan; // ditampilkan di ComboBox
+        return namajabatan; // ditampilkan di ComboBox
     }
     
 }

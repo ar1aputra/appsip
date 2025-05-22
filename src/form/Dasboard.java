@@ -139,7 +139,7 @@ public class Dasboard extends javax.swing.JFrame {
 
         jMenuBar2.add(menuteknisibaru);
 
-        menuharga.setText("HARGA");
+        menuharga.setText("PRODUK");
         jMenuBar2.add(menuharga);
 
         setJMenuBar(jMenuBar2);

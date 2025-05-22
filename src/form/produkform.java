@@ -14,16 +14,17 @@ import model.produkmodel;
  *
  * @author Administrator
  */
-public final class produk extends javax.swing.JFrame {
+public final class produkform extends javax.swing.JFrame {
     int xx, xy;
     produkmodel km = new produkmodel();
     DefaultTableModel tbl;
     List<produkmodel> dataproduk = new ArrayList<>();
+    private int kodeproduk;
     
     /**
      * Creates new form produk
      */
-    public produk() {
+    public produkform() {
         initComponents();
         setLocationRelativeTo(null);
         bersih();
@@ -350,20 +351,20 @@ public final class produk extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(produk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(produkform.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(produk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(produkform.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(produk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(produkform.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(produk.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(produkform.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new produk().setVisible(true);
+                new produkform().setVisible(true);
             }
         });
     }
@@ -384,4 +385,8 @@ public final class produk extends javax.swing.JFrame {
     private javax.swing.JTextField txtkodeproduk;
     private javax.swing.JTextField txtproduk;
     // End of variables declaration//GEN-END:variables
+
+    public int getKode() {
+        return kodeproduk;
+    }
 }

@@ -113,11 +113,11 @@ public class karyawanmodel {
      return data;    
    }
 
-public void tambah() {
-    String sql = "insert into karyawan values (null,'" + namakaryawan + "','" + namajabatan + "','" + alamatkaryawan + "') ";
-    db.simpanData(sql);
-    db.tutupKoneksi(null);
-}
+//public void tambah() {
+//    String sql = "insert into karyawan values (null,'" + namakaryawan + "','" + namajabatan + "','" + alamatkaryawan + "') ";
+//    db.simpanData(sql);
+//    db.tutupKoneksi(null);
+//}
 
 public void hapus () {
     String sql = "delete from karyawan where idkaryawan = '"+idkaryawan+"' ";
@@ -126,12 +126,11 @@ public void hapus () {
     }
 
 //edit data
-public void edit() {
-    String sql = "UPDATE karyawan SET namakaryawan = '" + namakaryawan+ 
-            "', alamatkaryawan = '" + alamatkaryawan + "' WHERE idkaryawan = '" + idkaryawan + "'";
-            db.simpanData(sql);
-            db.tutupKoneksi(null);
-        }
+//public void edit() { 
+//            String sql = "UPDATE karyawan SET (idkaryawan, namakaryawan, alamatkaryawan, kodejabatan) VALUES (null, ?, ?, ?)";
+//            db.simpanData(sql);
+//            db.tutupKoneksi(null);
+//        }
 
 
 //untuk pencarian daata

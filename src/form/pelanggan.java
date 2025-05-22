@@ -4,9 +4,11 @@
  */
 package form;
 import aplikasi.isp.Jabatan;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -16,6 +18,7 @@ import model.pelangganmodel;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
+import aplikasi.isp.Produk;
 
 /**
  *
@@ -32,6 +35,7 @@ public final class pelanggan extends javax.swing.JFrame {
     initComponents();
     buatkolom();
     tampilpelanggan();
+    combobox ();
     bersih();        
     kondisi(false);
     aturtombol();
@@ -86,7 +90,7 @@ public final class pelanggan extends javax.swing.JFrame {
         while (rs.next()) {
             int kode = rs.getInt("kodeproduk");
             String nama = rs.getString("namaproduk");
-            btncomboproduk.addItem(new Jabatan(kode, nama));
+            btncomboproduk.addItem(new Produk (kode, nama));
         }
 
         rs.close();
@@ -309,6 +313,12 @@ public final class pelanggan extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Produk Pelanggan");
 
+        btncomboproduk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncomboprodukActionPerformed(evt);
+            }
+        });
+
         txtalamatpelanggan.setColumns(20);
         txtalamatpelanggan.setRows(5);
         jScrollPane3.setViewportView(txtalamatpelanggan);
@@ -377,7 +387,6 @@ public final class pelanggan extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btncomboproduk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
@@ -490,44 +499,55 @@ public final class pelanggan extends javax.swing.JFrame {
 
     private void btnsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimpanActionPerformed
         // TODO add your handling code here:
-        if (txtnamapelanggan.getText().isEmpty()) {
+        if (txtnamapelanggan.getText().isEmpty() || txtalamatpelanggan.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Data belum Lengkap");
-        }else if(txtalamatpelanggan.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Data belum Lengkap");
+            return;
         }
-        try {          
-            String nama = txtnamapelanggan.getText();
-            String alamat = txtalamatpelanggan.getText();
-            Jabatan jab = (Jabatan) btncomboproduk.getSelectedItem();
-            int kodeproduk = jab.getKode();
-            String sql = "INSERT INTO pelanggan (idpelanggan, namapelanggan, alamatpelanggan, kodeproduk) VALUES (null, ?, ?, ?)";
-            Connection conn = koneksi2.getConnection();
-            PreparedStatement pstm = conn.prepareStatement(sql);
-            pstm.setString(1, nama);
-            pstm.setString(2, alamat);
-            pstm.setInt(3, kodeproduk);
-            pstm.executeUpdate();
-        JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
-        
-        tampilpelanggan();
-        bersih();
+        String nama = txtnamapelanggan.getText();
+        String alamat = txtalamatpelanggan.getText();
+        Produk produk = (Produk) btncomboproduk.getSelectedItem();
+        int kodeproduk = produk.getKode();
 
-    } catch (Exception e) {
-    JOptionPane.showMessageDialog(null, "Salah Simpan data: " + e.getMessage());
-    
-           
-        if(btntambah.getText().equalsIgnoreCase("batal")) {
-            km.tambah();
-        }else if(btnedit.getText().equalsIgnoreCase("batal")){
-            km.edit();
+        // SIMPAN DATA BARU
+        if (btntambah.getText().equalsIgnoreCase("batal")) {
+            try {
+                String sql = "INSERT INTO pelanggan (idpelanggan, namapelanggan, alamatpelanggan, kodeproduk) VALUES (null, ?, ?, ?)";
+                Connection conn = koneksi2.getConnection();
+                PreparedStatement pstm = conn.prepareStatement(sql);
+                pstm.setString(1, nama);
+                pstm.setString(2, alamat);
+                pstm.setInt(3, kodeproduk);
+                pstm.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
+            } catch (SQLException | HeadlessException e) {
+                JOptionPane.showMessageDialog(null, "Salah Simpan data: " + e.getMessage());
+            }
         }
-            bersih();
-            tampilpelanggan();
-            kondisi(false);
-            aturtombol();
-            btntambah.setText("Tambah");
-            btnedit.setText("edit");
-     }
+        // EDIT DATA
+        else if (btnedit.getText().equalsIgnoreCase("batal")) {
+            try {
+                String sql = "UPDATE pelanggan SET namapelanggan = ?, alamatpelanggan = ?, kodeproduk = ? WHERE idpelanggan = ?";
+                Connection conn = koneksi2.getConnection();
+                PreparedStatement pstm = conn.prepareStatement(sql);
+                pstm.setString(1, nama);
+                pstm.setString(2, alamat);
+                pstm.setInt(3, kodeproduk);
+                pstm.setString(4, txtidpelanggan.getText());
+                pstm.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "Data berhasil diubah");
+            } catch (SQLException | HeadlessException e) {
+                JOptionPane.showMessageDialog(null, "Salah Edit data: " + e.getMessage());
+            }
+        }
+        // Reset UI dan data
+        bersih();
+        kondisi(false);
+        tampilpelanggan();
+        aturtombol();
+        btntambah.setText("Tambah");
+        btnedit.setText("Edit");
     }//GEN-LAST:event_btnsimpanActionPerformed
 
     private void btntambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntambahActionPerformed
@@ -569,6 +589,10 @@ public final class pelanggan extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnkeluarActionPerformed
+
+    private void btncomboprodukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncomboprodukActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btncomboprodukActionPerformed
 
     /**
      * @param args the command line arguments

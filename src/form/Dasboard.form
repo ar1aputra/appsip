@@ -113,7 +113,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuharga">
           <Properties>
-            <Property name="text" type="java.lang.String" value="HARGA"/>
+            <Property name="text" type="java.lang.String" value="PRODUK"/>
           </Properties>
         </Menu>
       </SubComponents>

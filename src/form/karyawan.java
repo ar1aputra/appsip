@@ -4,9 +4,11 @@
  */
 package form;
 import aplikasi.isp.Jabatan;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -59,6 +61,7 @@ public final class karyawan extends javax.swing.JFrame {
     txtidkaryawan.setText(tblkaryawan.getValueAt(tblkaryawan.getSelectedRow(), 0).toString());
     txtnamakaryawan.setText(tblkaryawan.getValueAt(tblkaryawan.getSelectedRow(),1).toString());
     txtalamatkaryawan.setText(tblkaryawan.getValueAt(tblkaryawan.getSelectedRow(),2).toString());
+    kondisi(false);
     }
     
     public void tampilkaryawan() {
@@ -426,61 +429,75 @@ public final class karyawan extends javax.swing.JFrame {
         if(btntambah.getText().equalsIgnoreCase("Tambah")) {
             btntambah.setText("Batal");
             bersih();
-            
+            kondisi(true);
+                        
             btntambah.setEnabled(true);
             btnsimpan.setEnabled(true);
             btnhapus.setEnabled(false);
             btnedit.setEnabled(false);
+            txtnamakaryawan.requestFocus();
         }
         
-        else {            
+        else {
             btntambah.setText("Tambah");
             bersih ();
-            aturtombol();            
+            kondisi(false);
+            aturtombol();           
         }        
-        kondisi (true);
+        kondisi (true);                        
     }//GEN-LAST:event_btntambahActionPerformed
 
     private void btnsimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsimpanActionPerformed
         // TODO add your handling code here:
-        if (txtnamakaryawan.getText().isEmpty()) {
+        if (txtnamakaryawan.getText().isEmpty() || txtalamatkaryawan.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Data belum Lengkap");
-        }else if(txtalamatkaryawan.getText().isEmpty()){
-               JOptionPane.showMessageDialog(null, "Data belum Lengkap");
+            return;
         }
-       try {          
-            String nama = txtnamakaryawan.getText();
-            String alamat = txtalamatkaryawan.getText();
-            Jabatan jab = (Jabatan) btncombojabatan.getSelectedItem();
-            int kodejabatan = jab.getKode();
-            String sql = "INSERT INTO karyawan (idkaryawan, namakaryawan, alamatkaryawan, kodejabatan) VALUES (null, ?, ?, ?)";
-            Connection conn = koneksi2.getConnection();
-            PreparedStatement pstm = conn.prepareStatement(sql);
-            pstm.setString(1, nama);
-            pstm.setString(2, alamat);
-            pstm.setInt(3, kodejabatan);
-            pstm.executeUpdate();
+        String nama = txtnamakaryawan.getText();
+        String alamat = txtalamatkaryawan.getText();
+        Jabatan jab = (Jabatan) btncombojabatan.getSelectedItem();
+        int kodejabatan = jab.getKode();
 
-            JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
-            tampilkaryawan();
-            bersih();
+        // SIMPAN DATA BARU
+        if (btntambah.getText().equalsIgnoreCase("batal")) {
+            try {
+                String sql = "INSERT INTO karyawan (idkaryawan, namakaryawan, alamatkaryawan, kodejabatan) VALUES (null, ?, ?, ?)";
+                Connection conn = koneksi2.getConnection();
+                PreparedStatement pstm = conn.prepareStatement(sql);
+                pstm.setString(1, nama);
+                pstm.setString(2, alamat);
+                pstm.setInt(3, kodejabatan);
+                pstm.executeUpdate();
 
-    } catch (Exception e) {
-    JOptionPane.showMessageDialog(null, "Salah Simpan data: " + e.getMessage());
-    
-           
-        if(btntambah.getText().equalsIgnoreCase("batal")) {
-            km.tambah();
-        }else if(btnedit.getText().equalsIgnoreCase("batal")){
-            km.edit();
+                JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
+            } catch (SQLException | HeadlessException e) {
+                JOptionPane.showMessageDialog(null, "Salah Simpan data: " + e.getMessage());
+            }
         }
-            bersih();
-            kondisi(false);
-            tampilkaryawan();
-            aturtombol();
-            btntambah.setText("Tambah");
-            btnedit.setText("edit");
-      }
+        // EDIT DATA
+        else if (btnedit.getText().equalsIgnoreCase("batal")) {
+            try {
+                String sql = "UPDATE karyawan SET namakaryawan = ?, alamatkaryawan = ?, kodejabatan = ? WHERE idkaryawan = ?";
+                Connection conn = koneksi2.getConnection();
+                PreparedStatement pstm = conn.prepareStatement(sql);
+                pstm.setString(1, nama);
+                pstm.setString(2, alamat);
+                pstm.setInt(3, kodejabatan);
+                pstm.setString(4, txtidkaryawan.getText()); // pastikan ada txtidkaryawan
+                pstm.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "Data berhasil diubah");
+            } catch (SQLException | HeadlessException e) {
+                JOptionPane.showMessageDialog(null, "Salah Edit data: " + e.getMessage());
+            }
+        }
+        // Reset UI dan data
+        bersih();
+        kondisi(false);
+        tampilkaryawan();
+        aturtombol();
+        btntambah.setText("Tambah");
+        btnedit.setText("Edit");
     }//GEN-LAST:event_btnsimpanActionPerformed
 
     private void btnhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhapusActionPerformed
