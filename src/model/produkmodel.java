@@ -5,8 +5,10 @@
 package model;
 
 import java.sql.ResultSet;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 
 /**
@@ -87,11 +89,15 @@ public class produkmodel {
        try {
             String sql = "select * from produk";
             hasil = db.ambilData(sql);
+            
+            NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("id", "ID"));
             while(hasil.next() ) {
                 produkmodel km = new produkmodel();
                 km.setKodeproduk(hasil.getString("kodeproduk"));
                 km.setNamaproduk(hasil.getString("namaproduk"));
-                km.setHargaproduk(hasil.getString("hargaproduk"));
+                double produk = hasil.getDouble("hargaproduk");
+                String produkFormatted = formatter.format(produk);
+                km.setHargaproduk(produkFormatted);
                 data.add(km);
             }
             db.tutupKoneksi (hasil);
@@ -100,5 +106,4 @@ public class produkmodel {
     }
      return data;    
    }
-    
 }

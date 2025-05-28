@@ -156,6 +156,7 @@ public final class jabatanform extends javax.swing.JFrame {
         txtgajijabatan.setText("jTextField1");
 
         btnsimpan.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnsimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/icons8-diskette-16.png"))); // NOI18N
         btnsimpan.setText("SIMPAN");
         btnsimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,7 +167,7 @@ public final class jabatanform extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 153, 102));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel4.setText("Master JABATAN");
+        jLabel4.setText("MASTER JABATAN");
 
         btnclose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/icons8-close-16.png"))); // NOI18N
         btnclose.addActionListener(new java.awt.event.ActionListener() {
@@ -180,9 +181,9 @@ public final class jabatanform extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(62, 62, 62)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(78, 78, 78)
                 .addComponent(btnclose, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -197,6 +198,7 @@ public final class jabatanform extends javax.swing.JFrame {
         );
 
         btnbatal.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnbatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/icons8-cancel-16 (1).png"))); // NOI18N
         btnbatal.setText("BATAL");
         btnbatal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -252,7 +254,7 @@ public final class jabatanform extends javax.swing.JFrame {
                                 .addComponent(btnsimpan)
                                 .addGap(25, 25, 25)
                                 .addComponent(btnbatal)))
-                        .addGap(0, 96, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,7 +291,7 @@ public final class jabatanform extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtcari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();

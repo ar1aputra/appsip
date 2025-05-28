@@ -112,6 +112,7 @@ public final class daftar extends javax.swing.JFrame {
         txtnama.setText("jTextField1");
 
         btndaftar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btndaftar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/icons8-add-user-male-16.png"))); // NOI18N
         btndaftar.setText("Daftar");
         btndaftar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,6 +126,7 @@ public final class daftar extends javax.swing.JFrame {
         txtpass.setText("jPasswordField1");
 
         btnbatal.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnbatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/icons8-cancel-16 (1).png"))); // NOI18N
         btnbatal.setText("Batal");
         btnbatal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -153,20 +155,19 @@ public final class daftar extends javax.swing.JFrame {
                         .addGap(67, 67, 67)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnnama)
-                            .addComponent(btnpass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnconfirm))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtpass, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtnama, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtpass2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addComponent(btndaftar)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btndaftar)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnnama)
+                                .addComponent(btnpass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnconfirm)))
                         .addGap(18, 18, 18)
-                        .addComponent(btnbatal)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtpass, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtnama, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtpass2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnbatal))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
